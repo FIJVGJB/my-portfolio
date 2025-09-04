@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slancer </title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Slancer</a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#education" class="nav-link">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="theme-toggle">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download-OYWMwqGyiBYmdhW9bcbtZVL0PG7lCB.jpeg" alt="Japanese street scene" class="hero-bg-image">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">I'm Saad Waseem</h1>
+            <h4></h4>
+            <p class="hero-subtitle">Full Stack Developer and Cloud enthusiast</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Get to know me better</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image slide-in-left">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/professional-developer-portrait-5uqNFltPlHz25QaI1ntbq3IEF2m2R9.png" alt="Professional Developer Portrait">
+                </div>
+                <div class="about-text slide-in-left">
+                    <p>Hello! I'm a passionate developer and designer with a love for creating beautiful, functional digital experiences. With expertise in modern web technologies and a keen eye for design, I bring ideas to life through code.</p>
+                    <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying the beauty of Japanese aesthetics that inspire my work.</p>
+                    <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education-skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education & Skills</h2>
+                <p class="section-subtitle">My academic background and technical expertise</p>
+            </div>
+            
+            <div class="education-section">
+                <h3 class="subsection-title">Education</h3>
+                <div class="education-grid">
+                    <div class="education-card slide-in-left">
+                        <div class="education-icon">🎓</div>
+                        <h4>Bachelor of Computer Science</h4>
+                        <p class="education-school">University of Technology</p>
+                        <p class="education-year">2018 - 2022</p>
+                        <p>Specialized in Software Engineering and Web Development</p>
+                    </div>
+                    <div class="education-card slide-in-right">
+                        <div class="education-icon">📜</div>
+                        <h4>Full Stack Web Development</h4>
+                        <p class="education-school">Coding Bootcamp</p>
+                        <p class="education-year">2022</p>
+                        <p>Intensive program covering modern web technologies</p>
+                    </div>
+                    <div class="education-card slide-in-left">
+                        <div class="education-icon">🏆</div>
+                        <h4>AWS Certified Developer</h4>
+                        <p class="education-school">Amazon Web Services</p>
+                        <p class="education-year">2023</p>
+                        <p>Cloud development and deployment expertise</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <h3 class="subsection-title">Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-category slide-in-right">
+                        <h4>Frontend</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Vue.js</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
+                    <div class="skill-category slide-in-left">
+                        <h4>Backend</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="skill-category slide-in-right">
+                        <h4>Tools & Others</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Figma</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">Some of my recent work</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card slide-in-left">
+    <div class="project-image">
+        <img src="./public/portfolio.png" alt="Cloud Portfolio Website">
+        <div class="project-overlay">
+            <a href="./project-page.html" class="btn btn-small">View Details</a>
+        </div>
+    </div>
+    <div class="project-content">
+        <h3>Cloud Portfolio Website</h3>
+        <p>A personal portfolio website hosted on AWS EC2, integrated with a domain and Cloudflare for performance and security.</p>
+        <div class="project-tags">
+            <span class="tag">AWS EC2</span>
+            <span class="tag">Cloudflare</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+        </div>
+    </div>
+</div>
+
+                <div class="project-card slide-in-right">
+                    <div class="project-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/task-management-dashboard-h9ZCFzzxV3pm8UiKsLOypgcFlxSCzZ.png" alt="Task Management Dashboard">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Task Management Dashboard</h3>
+                        <p>A productivity app that helps teams collaborate and manage projects efficiently.</p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">PWA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card slide-in-left">
+                    <div class="project-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/ai-chat-interface-EuUmKwjY1g2mnpKxwmUFACpCzkiSrr.png" alt="AI Chat Interface">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Chat Interface</h3>
+                        <p>An intelligent chat application with natural language processing capabilities.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">OpenAI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card slide-in-right">
+                    <div class="project-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/social-media-dashboard-UodNUAvsPQ0jXwjhREhzqY3s88Ch48.png" alt="Social Media Dashboard">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Social Media Dashboard</h3>
+                        <p>A comprehensive dashboard for managing multiple social media accounts and analytics.</p>
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Chart.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card slide-in-left">
+                    <div class="project-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/crypto-tracker-ofXKY3ZEDFzxcZPXPE1NtZZh4OEWzV.png" alt="Crypto Tracker">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Crypto Tracker</h3>
+                        <p>Real-time cryptocurrency tracking application with portfolio management features.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Redux</span>
+                            <span class="tag">API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card slide-in-right">
+                    <div class="project-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/learning-management-system-nknS0cdq1kcrBOF1mvBHXwHLY5Ptlm.png" alt="Learning Management System">
+                        <div class="project-overlay">
+                            <a href="#" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Learning Management System</h3>
+                        <p>A comprehensive platform for online education with course management and progress tracking.</p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Laravel</span>
+                            <span class="tag">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-background">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%281%29-XJ0WufcA1sDEutdXqRDxzAM2IbWpT3.jpeg" alt="Japanese street scene" class="contact-bg-image">
+            <div class="contact-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Reach Me</h2>
+                <p class="section-subtitle">Let's create something amazing together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-form slide-up">
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info slide-up">
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>obsks23@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+92 349 0436643</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Lahore, Pakistan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="www.linkedin.com/in/saadwaseemfij" class="social-link" target="_blank">
+                            <span class="social-icon">💼</span>
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com/FIJVGJB" class="social-link" target="_blank">
+                            <span class="social-icon">🐱</span>
+                            GitHub
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+   <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Slancer Portfolio. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                    <a href="https://twitter.com" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
