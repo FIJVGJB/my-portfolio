@@ -1,233 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog – Portfolio on AWS EC2</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Blog-specific styles */
-    .blog-section h3 {
-      margin-top: 2rem;
-      font-size: 1.6rem;
-      color: var(--text-primary);
-    }
-    .blog-section p, .blog-section li {
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .blog-section ol, .blog-section ul {
-      margin: 1rem 0 2rem 1.5rem;
-    }
-    pre, code {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      padding: 10px 15px;
-      border-radius: 8px;
-      display: block;
-      margin: 1rem 0;
-      font-family: monospace;
-      font-size: 0.95rem;
-      overflow-x: auto;
-    }
-    .tech-list li::before {
-      content: "✔ ";
-      color: var(--accent-primary);
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slancer - Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <div class="nav-logo"><a href="index.html">Slancer</a></div>
-      <ul class="nav-menu" id="nav-menu">
-        <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
-        <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
-        <li class="nav-item">
-          <button class="theme-toggle" id="theme-toggle"><span class="theme-icon">🌙</span></button>
-        </li>
-      </ul>
-      <div class="nav-toggle" id="nav-toggle">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-      </div>
-    </div>
-  </nav>
+<body class="font-sans transition-all duration-300" data-theme="light">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full bg-white bg-opacity-95 backdrop-blur-md z-50 transition-all duration-300" id="navbar">
+        <div class="nav-container flex justify-between items-center h-16 px-4 md:px-6">
+            <div class="nav-logo">
+                <a href="index.html" class="text-2xl font-bold text-red-500">Slancer</a>
+            </div>
+            <ul class="nav-menu hidden md:flex items-center gap-6">
+                <li><a href="index.html#home" class="nav-link text-gray-800 hover:text-red-500 transition">Home</a></li>
+                <li><a href="index.html#about" class="nav-link text-gray-800 hover:text-red-500 transition">About</a></li>
+                <li><a href="index.html#projects" class="nav-link text-gray-800 hover:text-red-500 transition">Projects</a></li>
+                <li><a href="index.html#contact" class="nav-link text-gray-800 hover:text-red-500 transition">Contact</a></li>
+            </ul>
+            <button class="theme-toggle border-2 border-gray-200 rounded-full w-10 h-10 flex items-center justify-center hover:border-red-500 transition transform hover:scale-105" id="theme-toggle">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="nav-toggle md:hidden flex flex-col cursor-pointer" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-background">
-      <img src="public/portfolio-live.png" alt="Portfolio on EC2" class="hero-bg-image">
-      <div class="hero-overlay"></div>
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title">Portfolio on AWS EC2</h1>
-      <p class="hero-subtitle">Design, Deploy, Automate & Secure a Personal Portfolio Website</p>
-    </div>
-  </section>
+    <!-- Blog Listing Section -->
+    <section class="py-24 bg-gray-50 dark:bg-gray-900" id="blog">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="section-header text-center mb-12">
+                <h2 class="section-title text-4xl font-bold text-gray-900 dark:text-white">My Blog</h2>
+                <p class="section-subtitle text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    Explore my latest articles on cloud technologies and projects
+                </p>
+            </div>
 
-  <!-- Blog Content -->
-  <section class="container blog-section" style="padding:60px 0;">
-    
-    <!-- Overview -->
-    <div class="section-header">
-      <h2 class="section-title">Project Overview</h2>
-      <p class="section-subtitle">How I built and deployed my cloud-based portfolio</p>
-    </div>
-    <p>
-      My personal portfolio website isn’t just a static site — it’s hosted on <b>AWS EC2</b>, 
-      integrated with <b>S3</b> for static assets, and connected to a custom domain via <b>Namecheap</b> and <b>Cloudflare</b>. 
-      This project reflects my dual skill set as a <b>Web Developer</b> and <b>Cloud Practitioner</b>.
-    </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Blog Card 1: S3 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
+                    <a href="blog-s3.html" class="project-image block relative">
+                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rb75uilwsbjalw7rui2w.png" alt="AWS S3 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <span class="text-white font-semibold">View Blog</span>
+                        </div>
+                    </a>
+                    <div class="project-content p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Portfolio on AWS S3</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Simple, scalable, and serverless website hosting using Amazon S3, integrated with CloudFront and Cloudflare for performance and security.</p>
+                        <a href="./S3-blog.html" class="btn btn-outline inline-block">Read More</a>
+                    </div>
+                </div>
 
-    <!-- Designing -->
-    <h3>Designing the Portfolio</h3>
-    <p>
-      I built the site with <b>HTML, CSS, and JavaScript</b> to keep it lightweight and responsive. 
-      Features like a dark/light theme toggle, animations, and smooth navigation 
-      were added to give it a professional, modern feel.
-    </p>
-    
-    <!-- EC2 Setup -->
-    <h3>☁️ Creating the EC2 Instance</h3>
-    <p>
-      I launched an <b>Ubuntu t2.micro EC2 instance</b> from the AWS Management Console, then connected via SSH:
-    </p>
-    <pre><code>ssh -i mykey.pem ubuntu@your-ec2-public-ip</code></pre>
-    <p>
-      Installed <b>Nginx</b> to serve my portfolio:
-    </p>
-    <pre><code>sudo apt update
-sudo apt install nginx -y
-sudo systemctl start nginx</code></pre>
-    <p>
-      Finally, I uploaded my portfolio files to:
-    </p>
-    <pre><code>/var/www/html/</code></pre>
-    <p>
-      Visiting the EC2 public IP showed my site live for the first time 🚀.
-    </p>
+                <!-- Blog Card 2: EC2 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-right">
+                    <a href="blog-ec2.html" class="project-image block relative">
+                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ney0h29jljjw0pnk48fy.png" alt="AWS EC2 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <span class="text-white font-semibold">View Blog</span>
+                        </div>
+                    </a>
+                    <div class="project-content p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">AWS EC2 Portfolio Hosting</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Deploy a portfolio on EC2 with Nginx and automate updates using CodePipeline and CodeDeploy, secured with Cloudflare SSL.</p>
+                        <a href="./ec2-blog.html" class="btn btn-outline inline-block">Read More</a>
+                    </div>
+                </div>
 
-    <!-- CI/CD -->
-    <h3>🔄 Setting Up GitHub CI/CD</h3>
-    <p>
-      To avoid manual uploads, I integrated <b>GitHub → AWS CodePipeline → EC2</b>:
-    </p>
-    <ol>
-      <li>Pushed my portfolio code to GitHub.</li>
-      <li>Created a CodePipeline connected to the repo.</li>
-      <li>Deployed builds automatically to EC2 with CodeDeploy.</li>
-    </ol>
-    <p>
-      Now, whenever I push updates to GitHub, my EC2 instance is updated automatically.
-    </p>
+                <!-- Blog Card 3: Serverless -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
+                    <a href="blog-serverless.html" class="project-image block relative">
+                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u6k6b3t3g9z7h7v2a6e3.png" alt="Serverless Application Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                            <span class="text-white font-semibold">View Blog</span>
+                        </div>
+                    </a>
+                    <div class="project-content p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Serverless Task Manager with AWS Lambda</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Build a scalable task management app using AWS Lambda, API Gateway, and DynamoDB, with a focus on serverless architecture.</p>
+                        <a href="./Web-app-blog.html" class="btn btn-outline inline-block">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Domain -->
-    <h3>🌐 Domain Setup with Namecheap + Cloudflare</h3>
-    <p>
-      I purchased a custom domain from <b>Namecheap</b> and connected it through <b>Cloudflare</b>:
-    </p>
-    <ul>
-      <li>Updated Namecheap nameservers → Cloudflare</li>
-      <li>On Cloudflare, created an <code>A record</code> pointing to EC2 IP</li>
-      <li>Enabled free SSL & caching for performance and security</li>
-    </ul>
+    <!-- Footer -->
+    <footer class="footer bg-gray-100 dark:bg-gray-800 py-8 border-t border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-gray-600 dark:text-gray-400">© 2025 Slancer Portfolio. All rights reserved.</p>
+            <div class="footer-links flex gap-6">
+                <a href="https://linkedin.com" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition">LinkedIn</a>
+                <a href="https://github.com" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition">GitHub</a>
+                <a href="https://twitter.com" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition">Twitter</a>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Challenges -->
-    <h3>⚡ Challenges & Solutions</h3>
-    <p>
-      <b>1. SSL Setup:</b> Configuring HTTPS was tricky, but Cloudflare’s free SSL simplified it.<br><br>
-      <b>2. CI/CD Permissions:</b> Fixed deployment errors by attaching correct IAM roles.<br><br>
-      <b>3. DNS Delays:</b> Domain propagation required patience and testing with <code>dig</code> and <code>nslookup</code>.
-    </p>
-
-    <!-- Tech -->
-    <h3>🛠️ Technologies & Services Used</h3>
-    <ul class="tech-list">
-      <li>AWS EC2 – Hosting</li>
-      <li>AWS S3 – Static assets</li>
-      <li>GitHub + CodePipeline – CI/CD</li>
-      <li>Namecheap – Custom domain</li>
-      <li>Cloudflare – SSL, caching, DNS</li>
-      <li>Frontend – HTML, CSS, JavaScript</li>
-    </ul>
-
-    <!-- Gallery -->
-    <div class="section-header" style="margin-top:60px;">
-      <h2 class="section-title">📸 Project Gallery</h2>
-      <p class="section-subtitle">Screenshots from the build and deployment process</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="public/ec2-setup.png" alt="EC2 Setup" class="gallery-image">
-        <div class="gallery-overlay"><h4>EC2 Setup</h4></div>
-      </div>
-      <div class="gallery-item">
-        <img src="public/cloudflare.png" alt="Cloudflare DNS" class="gallery-image">
-        <div class="gallery-overlay"><h4>Cloudflare DNS</h4></div>
-      </div>
-      <div class="gallery-item">
-        <img src="public/pipeline.png" alt="CI/CD Pipeline" class="gallery-image">
-        <div class="gallery-overlay"><h4>CI/CD Pipeline</h4></div>
-      </div>
-      <div class="gallery-item">
-        <img src="public/portfolio-live.png" alt="Live Portfolio" class="gallery-image">
-        <div class="gallery-overlay"><h4>Live Portfolio</h4></div>
-      </div>
-    </div>
-  </section>
-
-
-
-<!--gallery css-->
-
-<style>
-    /* Horizontal gallery */
-.gallery-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  overflow-x: auto;      /* enable horizontal scroll if too many images */
-  padding-bottom: 10px;
-  scroll-snap-type: x mandatory; /* optional: smooth snapping */
-}
-
-.gallery-item {
-  flex: 0 0 auto;        /* prevent shrinking */
-  width: 280px;          /* fixed width for each item */
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  scroll-snap-align: start; /* snap to each image */
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-  transform: translateY(-5px);
-}
-
-.gallery-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-</style>
-
-
-
-
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2024 Slancer Blog. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
