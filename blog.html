@@ -31,65 +31,80 @@
             </div>
         </div>
     </nav>
+<!-- Blog Listing Section -->
+<section class="py-24 bg-gray-50 dark:bg-gray-900" id="blog">
+    <div class="container mx-auto px-4 md:px-6">
+        <div class="section-header text-center mb-12">
+            <h2 class="section-title text-4xl font-bold text-gray-900 dark:text-white">My Blog</h2>
+            <p class="section-subtitle text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Explore my latest articles on cloud technologies and projects
+            </p>
+        </div>
 
-    <!-- Blog Listing Section -->
-    <section class="py-24 bg-gray-50 dark:bg-gray-900" id="blog">
-        <div class="container mx-auto px-4 md:px-6">
-            <div class="section-header text-center mb-12">
-                <h2 class="section-title text-4xl font-bold text-gray-900 dark:text-white">My Blog</h2>
-                <p class="section-subtitle text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                    Explore my latest articles on cloud technologies and projects
-                </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Blog Card 1: S3 -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
+                <a href="blog-s3.html" class="project-image block relative">
+                    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rb75uilwsbjalw7rui2w.png" alt="AWS S3 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                    <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <span class="text-white font-semibold">View Blog</span>
+                    </div>
+                </a>
+                <div class="project-content p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Portfolio on AWS S3</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Simple, scalable, and serverless website hosting using Amazon S3, integrated with CloudFront and Cloudflare for performance and security.</p>
+                    <a href="./S3-blog.html" class="btn btn-outline inline-block">Read More</a>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Blog Card 1: S3 -->
-                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
-                    <a href="blog-s3.html" class="project-image block relative">
-                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rb75uilwsbjalw7rui2w.png" alt="AWS S3 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
-                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                            <span class="text-white font-semibold">View Blog</span>
-                        </div>
-                    </a>
-                    <div class="project-content p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Portfolio on AWS S3</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">Simple, scalable, and serverless website hosting using Amazon S3, integrated with CloudFront and Cloudflare for performance and security.</p>
-                        <a href="./S3-blog.html" class="btn btn-outline inline-block">Read More</a>
+            <!-- Blog Card 2: EC2 -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-right">
+                <a href="blog-ec2.html" class="project-image block relative">
+                    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ney0h29jljjw0pnk48fy.png" alt="AWS EC2 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                    <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <span class="text-white font-semibold">View Blog</span>
                     </div>
+                </a>
+                <div class="project-content p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">AWS EC2 Portfolio Hosting</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Deploy a portfolio on EC2 with Nginx and automate updates using CodePipeline and CodeDeploy, secured with Cloudflare SSL.</p>
+                    <a href="./ec2-blog.html" class="btn btn-outline inline-block">Read More</a>
                 </div>
+            </div>
 
-                <!-- Blog Card 2: EC2 -->
-                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-right">
-                    <a href="blog-ec2.html" class="project-image block relative">
-                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ney0h29jljjw0pnk48fy.png" alt="AWS EC2 Hosting Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
-                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                            <span class="text-white font-semibold">View Blog</span>
-                        </div>
-                    </a>
-                    <div class="project-content p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">AWS EC2 Portfolio Hosting</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">Deploy a portfolio on EC2 with Nginx and automate updates using CodePipeline and CodeDeploy, secured with Cloudflare SSL.</p>
-                        <a href="./ec2-blog.html" class="btn btn-outline inline-block">Read More</a>
+            <!-- Blog Card 3: Serverless -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
+                <a href="blog-serverless.html" class="project-image block relative">
+                    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u6k6b3t3g9z7h7v2a6e3.png" alt="Serverless Application Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                    <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <span class="text-white font-semibold">View Blog</span>
                     </div>
+                </a>
+                <div class="project-content p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Serverless Task Manager with AWS Lambda</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Build a scalable task management app using AWS Lambda, API Gateway, and DynamoDB, with a focus on serverless architecture.</p>
+                    <a href="./Web-app-blog.html" class="btn btn-outline inline-block">Read More</a>
                 </div>
+            </div>
 
-                <!-- Blog Card 3: Serverless -->
-                <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-left">
-                    <a href="blog-serverless.html" class="project-image block relative">
-                        <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u6k6b3t3g9z7h7v2a6e3.png" alt="Serverless Application Illustration" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
-                        <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                            <span class="text-white font-semibold">View Blog</span>
-                        </div>
-                    </a>
-                    <div class="project-content p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Serverless Task Manager with AWS Lambda</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4">Build a scalable task management app using AWS Lambda, API Gateway, and DynamoDB, with a focus on serverless architecture.</p>
-                        <a href="./Web-app-blog.html" class="btn btn-outline inline-block">Read More</a>
+            <!-- Blog Card 4: Web Development Project -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-2 slide-in-right">
+                <a href="blog-church.html" class="project-image block relative">
+                    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3jl2h7churcchsite.png" alt="Church Website Screenshot" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105">
+                    <div class="project-overlay absolute inset-0 bg-red-500 bg-opacity-90 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <span class="text-white font-semibold">View Blog</span>
                     </div>
+                </a>
+                <div class="project-content p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Church Website Development</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Developed and designed a responsive website for <strong>CCC Miracle Parish (Central Church of Christ)</strong>, focusing on accessibility, modern design, and community engagement.</p>
+                    <a href="./blog-church.html" class="btn btn-outline inline-block">Read More</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Footer -->
     <footer class="footer bg-gray-100 dark:bg-gray-800 py-8 border-t border-gray-200 dark:border-gray-700">
