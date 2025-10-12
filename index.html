@@ -76,25 +76,106 @@
             <div class="scroll-arrow"></div>
         </div>
     </section>
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">Get to know me better</p>
+    </div>
 
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">Get to know me better</p>
-            </div>
-            <div class="about-content">
-                <div class="about-image slide-in-left">
-                   <!-- <img src="" alt="Professional Developer Portrait">-->
-                </div>
-                <div class="about-text slide-in-left">
-                    <p>I enjoy learning new things and keeping life simple. Most of my time goes into building websites and cloud projects that are practical and easy to use.</p>
-                    <p>Right now, I am persuing for AWS Solution Architecture Exam and Certification. I’m also focusing on improving my skills in web development, AWS cloud, and a bit of automation—always aiming to grow step by step.</p>
-                    <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
-                </div>
-            </div>
+    <div class="about-content">
+      <div class="about-image slide-in-left">
+        <!-- <img src="your-photo.jpg" alt="Professional Developer Portrait"> -->
+      </div>
+
+      <div class="about-text slide-in-left">
+        <p>
+          I enjoy learning new things and keeping life simple. Most of my time goes into building websites and cloud projects that are practical and easy to use.
+        </p>
+        <p>
+          Right now, I am pursuing the AWS Solution Architect certification. I’m also improving my skills in web development, AWS Cloud, and automation — always aiming to grow step by step.
+        </p>
+
+        <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
+
+        <!-- 🔹 Visitor Display Card -->
+        <div class="visitor-card">
+          <h3 class="visitor-title">Website Insights</h3>
+          <p id="visitorCount" class="visitor-count">👁 Loading visitor data...</p>
+          <a href="./admin.html"><h4 style="color: black;">Loggin as admin for Full Insights</h4></a>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+<style>.visitor-card {
+  margin-top: 25px;
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border: 1px solid #e3e3e3;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.visitor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.visitor-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.visitor-count {
+  font-size: 0.95rem;
+  color: #555;
+}
+</style>
+
+
+<!--visitorcountjavacode-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counterElement = document.getElementById("visitorCount");
+
+  // Replace this with your actual API Gateway URL
+  const apiUrl = "https://your-api-id.execute-api.us-east-1.amazonaws.com/prod/count";
+
+  // Fetch visitor count safely
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.text(); // or .json() if your Lambda returns JSON
+    })
+    .then(data => {
+      // Handle both text and JSON responses gracefully
+      let countValue;
+      try {
+        const jsonData = JSON.parse(data);
+        countValue = jsonData.count || jsonData.visitorCount || data;
+      } catch {
+        countValue = data;
+      }
+
+      counterElement.textContent = `👁 ${countValue} total visitors`;
+    })
+    .catch(error => {
+      console.error("Visitor counter error:", error);
+      counterElement.textContent = "👁 Unable to load visitors";
+    });
+});
+</script>
+
+
+
+
 
     <section id="education" class="education-skills">
         <div class="container">
@@ -384,11 +465,7 @@
         <div class="container">
             <div class="footer-content">
                 <p>&copy; 2024 Slancer Portfolio. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                    <a href="https://github.com" target="_blank">GitHub</a>
-                    <a href="https://twitter.com" target="_blank">Twitter</a>
-                </div>
+                
             </div>
         </div>
     </footer>
