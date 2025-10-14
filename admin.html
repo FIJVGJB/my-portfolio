@@ -201,7 +201,10 @@
         </li>
         <li class="nav-item" role="none">
           <a href="./admin.html" class="nav-link" aria-current="page" role="menuitem">Admin</a>
+
         </li>
+        <button onclick="logout()">Logout</button>
+
         <li class="nav-item" role="none">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
             <span class="theme-icon">🌙</span>
@@ -390,8 +393,55 @@
     </div>
   </footer>
 
+  <!--user pool-->
+<script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
+<script>
+  const poolData = {
+    UserPoolId: "us-east-1_abc123xyz",
+    ClientId: "1h57kf5cpq17m0eml12EXAMPLE"
+  };
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  const cognitoUser = userPool.getCurrentUser();
+
+  if (!cognitoUser) {
+    window.location.href = "login.html";
+  } else {
+    cognitoUser.getSession((err, session) => {
+      if (err || !session.isValid()) {
+        window.location.href = "login.html";
+        return;
+      }
+      console.log("Logged in as:", cognitoUser.getUsername());
+      // You can now safely load visitor stats etc.
+    });
+  }
+
+  function logout() {
+    const user = userPool.getCurrentUser();
+    if (user) user.signOut();
+    localStorage.removeItem("cognitoToken");
+    window.location.href = "login.html";
+  }
+</script>
+
+
   <script src="script.js"></script>
   <script>
+// Check if logged in
+const token = localStorage.getItem("cognitoToken");
+if (!token) {
+  window.location.href = "login.html";
+}
+
+// Logout
+document.getElementById("logoutBtn").onclick = () => {
+  localStorage.removeItem("cognitoToken");
+  window.location.href = "login.html";
+};
+
+
+
+
     function countUp(el, to, duration = 800) {
       const start = 0;
       const startTime = performance.now();
@@ -427,6 +477,10 @@
         alert("Implement Cognito logout to clear tokens.");
       });
     });
-  </script>
+
+
+
+    
+     </script>
 </body>
 </html>

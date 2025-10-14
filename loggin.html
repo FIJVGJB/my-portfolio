@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login | Slancer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./public/logo.png" />
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
+
+  </head>
+  <body>
+     Hidden fallbacks so existing script.js runs safely 
+    <span class="hero-title" style="display:none;">Login</span>
+    <form id="contact-form" style="display:none;"></form>
+
+     Navbar (matches site structure for script.js bindings) 
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="/index.html#home">Slancer</a>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li class="nav-item"><a href="/index.html#home" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/index.html#about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="/index.html#education" class="nav-link">Education</a></li>
+          <li class="nav-item"><a href="/index.html#projects" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="/blog.html" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="/index.html#contact" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="/admin.html" class="nav-link">Admin</a></li>
+          <li class="nav-item">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+              <span class="theme-icon">🌙</span>
+            </button>
+          </li>
+        </ul>
+        <div class="nav-toggle" id="nav-toggle">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="login" style="padding:120px 0 80px; background: var(--bg-secondary);">
+        <div class="container" style="max-width:520px;">
+          <div class="contact-form" style="box-shadow: 0 10px 30px var(--shadow);">
+            <h2 class="section-title" style="margin-bottom:0.5rem;">Welcome back</h2>
+            <p class="section-subtitle" style="margin-bottom:1.5rem;">Sign in to continue</p>
+
+            <form id="login-form" action="#" method="post">
+              <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email address" autocomplete="email" required />
+              </div>
+              <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required />
+              </div>
+              <div class="form-row" style="grid-template-columns:1fr;">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+              </div>
+            </form>
+
+            <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center;">
+              <a href="#" class="nav-link" style="text-decoration:none;">Forgot password?</a>
+              <a href="#" class="nav-link" style="text-decoration:none;">Create an account</a>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; display:grid; gap:16px;">
+            <a class="btn btn-outline" href="/index.html#projects">Explore Projects</a>
+            <a class="btn btn-outline" href="/index.html#about">About Slancer</a>
+            <a class="btn btn-outline" href="/index.html#contact">Contact</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; <span id="year"></span> Slancer Portfolio. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Ensure navbar background updates immediately on theme changes
+      (function () {
+        const bodyEl = document.body;
+        const navbar = document.getElementById('navbar');
+        function setNavbarBackground() {
+          const theme = bodyEl.getAttribute('data-theme') || 'light';
+          const scrolled = window.scrollY > 50;
+          if (!navbar) return;
+          navbar.style.background = scrolled
+            ? (theme === 'dark' ? 'rgba(10,10,10,0.98)' : 'rgba(255,255,255,0.98)')
+            : (theme === 'dark' ? 'rgba(10,10,10,0.95)' : 'rgba(255,255,255,0.95)');
+        }
+        const observer = new MutationObserver(setNavbarBackground);
+        observer.observe(bodyEl, { attributes: true, attributeFilter: ['data-theme'] });
+        window.addEventListener('load', setNavbarBackground);
+        window.addEventListener('scroll', setNavbarBackground);
+      })();
+    </script>
+
+
+    <!--user pool-->
+<script>
+  const poolData = {
+    UserPoolId: "us-east-1_abc123xyz",   // your actual pool id
+    ClientId: "1h57kf5cpq17m0eml12EXAMPLE" // your actual client id
+  };
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+  document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+      Username: username,
+      Password: password
+    });
+    const userData = {
+      Username: username,
+      Pool: userPool
+    };
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    cognitoUser.authenticateUser(authDetails, {
+      onSuccess: (result) => {
+        console.log("Login success!");
+        localStorage.setItem("cognitoToken", result.getIdToken().getJwtToken());
+        window.location.href = "admin.html"; // redirect to admin
+      },
+      onFailure: (err) => {
+        alert(err.message || JSON.stringify(err));
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>
