@@ -395,7 +395,39 @@
 
   <!--user pool-->
 <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
+
 <script>
+function logout() {
+  localStorage.removeItem('cognito_token');
+  window.location.href = 'https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/logout?client_id=5uvkoo4cg7o1nj4uehinahpae8&logout_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/login.html';
+}
+</script>
+
+<script>
+
+    
+
+// Parse Cognito token from URL
+const hash = window.location.hash.substr(1);
+const result = hash.split('&').reduce(function (res, item) {
+  const parts = item.split('=');
+  res[parts[0]] = parts[1];
+  return res;
+}, {});
+
+if (result.access_token) {
+  localStorage.setItem('cognito_token', result.access_token);
+  window.history.replaceState({}, document.title, "admin.html");
+} else {
+  const token = localStorage.getItem('cognito_token');
+  if (!token) {
+    window.location.href = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/login?client_id=5uvkoo4cg7o1nj4uehinahpae8&response_type=token&scope=email+openid+phone&redirect_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+  }
+}
+
+
+
+
 
 // Extract Cognito tokens from URL after login
 const hash = window.location.hash.substr(1);
