@@ -55,9 +55,10 @@
               <div class="form-group">
                 <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required />
               </div>
-              <div class="form-row" style="grid-template-columns:1fr;">
-                <button type="submit" class="btn btn-primary">Sign in</button>
-              </div>
+              <button onclick="window.location.href='https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/login?client_id=5uvkoo4cg7o1nj4uehinahpae8&response_type=code&scope=email+openid+phone&redirect_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html'">
+  Sign in with Cognito
+</button>
+
             </form>
 
             <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center;">
@@ -112,41 +113,42 @@
     </script>
 
 
-    <!--user pool-->
-<script>
+    <!--user pool-->  <script>
   const poolData = {
-    UserPoolId: "us-east-1_abc123xyz",   // your actual pool id
-    ClientId: "1h57kf5cpq17m0eml12EXAMPLE" // your actual client id
-  };
-  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  UserPoolId: "us-east-1_syijijajr", // 👈 your actual User Pool ID (from AWS > Cognito > User Pools)
+  ClientId: "5uvkoo4cg7o1nj4uehinahpae8"
+};
 
-  document.getElementById("loginForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
 
-    const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-      Username: username,
-      Password: password
-    });
-    const userData = {
-      Username: username,
-      Pool: userPool
-    };
-    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
-    cognitoUser.authenticateUser(authDetails, {
-      onSuccess: (result) => {
-        console.log("Login success!");
-        localStorage.setItem("cognitoToken", result.getIdToken().getJwtToken());
-        window.location.href = "admin.html"; // redirect to admin
-      },
-      onFailure: (err) => {
-        alert(err.message || JSON.stringify(err));
-      }
-    });
-  });
-</script>
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+        Username: email,
+        Password: password,
+      });
+
+      const userData = {
+        Username: email,
+        Pool: userPool
+      };
+
+      const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+      cognitoUser.authenticateUser(authDetails, {
+        onSuccess: (result) => {
+          console.log("✅ Login success:", result);
+          localStorage.setItem("cognitoToken", result.getAccessToken().getJwtToken());
+          window.location.href = "admin.html";
+        },
+        onFailure: (err) => {
+          alert("❌ Login failed: " + err.message || JSON.stringify(err));
+        }
+      });
+    }
+  </script>
 
 
 </body>

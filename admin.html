@@ -396,23 +396,46 @@
   <!--user pool-->
 <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
 <script>
-  const poolData = {
-    UserPoolId: "us-east-1_abc123xyz",
-    ClientId: "1h57kf5cpq17m0eml12EXAMPLE"
-  };
+
+// Extract Cognito tokens from URL after login
+const hash = window.location.hash.substr(1);
+const params = new URLSearchParams(hash);
+const idToken = params.get("id_token");
+
+if (idToken) {
+  localStorage.setItem("cognitoToken", idToken);
+  // Clean URL (remove token fragment)
+  window.location.hash = "";
+}
+
+
+
+
+
+
+ const poolData = {
+  UserPoolId: "us-east-1_ea56492013a34891b3113dc1f6997a47", // your actual User Pool ID
+  ClientId: "5uvkoo4cg7o1nj4uehinahpae8"
+};
+
   const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   const cognitoUser = userPool.getCurrentUser();
 
-  if (!cognitoUser) {
-    window.location.href = "login.html";
-  } else {
+ if (!cognitoUser) {
+  // Redirect user to the Cognito Hosted UI
+const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
+  const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
+  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+  const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+  window.location.href = loginUrl;
+}
+else {
     cognitoUser.getSession((err, session) => {
       if (err || !session.isValid()) {
         window.location.href = "login.html";
         return;
       }
-      console.log("Logged in as:", cognitoUser.getUsername());
-      // You can now safely load visitor stats etc.
+      console.log("✅ Logged in as:", cognitoUser.getUsername());
     });
   }
 
