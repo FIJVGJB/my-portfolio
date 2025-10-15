@@ -7,13 +7,8 @@
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="32x32" href="./public/logo.png" />
-    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
-
   </head>
   <body>
-    <span class="hero-title" style="display:none;">Login</span>
-    <form id="contact-form" style="display:none;"></form>
-
     <nav class="navbar" id="navbar">
       <div class="nav-container">
         <div class="nav-logo">
@@ -42,27 +37,16 @@
     <main>
       <section id="login" style="padding:120px 0 80px; background: var(--bg-secondary);">
         <div class="container" style="max-width:520px;">
-          <div class="contact-form" style="box-shadow: 0 10px 30px var(--shadow);">
-            <h2 class="section-title" style="margin-bottom:0.5rem;">Welcome back</h2>
+          <div class="contact-form" style="box-shadow: 0 10px 30px var(--shadow); text-align:center;">
+            <h2 class="section-title" style="margin-bottom:0.5rem;">Welcome Back</h2>
             <p class="section-subtitle" style="margin-bottom:1.5rem;">Sign in to continue</p>
 
-            <form id="login-form" action="#" method="post">
-              <div class="form-group">
-                <input type="email" id="email" name="email" placeholder="Email address" autocomplete="email" required />
-              </div>
-              <div class="form-group">
-                <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required />
-              </div>
-            <button onclick="window.location.href='https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/login?client_id=5uvkoo4cg7o1nj4uehinahpae8&response_type=token&scope=email+openid+phone&redirect_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html'">
-  Sign in with Cognito
-</button>
-
-            </form>
-
-            <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center;">
-              <a href="#" class="nav-link" style="text-decoration:none;">Forgot password?</a>
-              <a href="#" class="nav-link" style="text-decoration:none;">Create an account</a>
-            </div>
+            <!-- 👇 Replaced old form with one Cognito button -->
+            <button 
+              style="background:#38bdf8;color:#0f172a;padding:12px 18px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;"
+              onclick="signInWithCognito()">
+              Sign in with Cognito
+            </button>
           </div>
 
           <div style="margin-top:24px; display:grid; gap:16px;">
@@ -86,68 +70,20 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-      // Set current year
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Ensure navbar background updates immediately on theme changes
-      (function () {
-        const bodyEl = document.body;
-        const navbar = document.getElementById('navbar');
-        function setNavbarBackground() {
-          const theme = bodyEl.getAttribute('data-theme') || 'light';
-          const scrolled = window.scrollY > 50;
-          if (!navbar) return;
-          navbar.style.background = scrolled
-            ? (theme === 'dark' ? 'rgba(10,10,10,0.98)' : 'rgba(255,255,255,0.98)')
-            : (theme === 'dark' ? 'rgba(10,10,10,0.95)' : 'rgba(255,255,255,0.95)');
-        }
-        const observer = new MutationObserver(setNavbarBackground);
-        observer.observe(bodyEl, { attributes: true, attributeFilter: ['data-theme'] });
-        window.addEventListener('load', setNavbarBackground);
-        window.addEventListener('scroll', setNavbarBackground);
-      })();
+      // Redirect to Cognito hosted login page
+      function signInWithCognito() {
+        const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
+        const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
+        const redirectUri = encodeURIComponent("https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html");
+        const scopes = "email+openid+phone";
+        const responseType = "code"; // Use 'code' for secure redirect
+
+        const loginUrl = `${domain}/login?client_id=${clientId}&response_type=${responseType}&scope=${scopes}&redirect_uri=${redirectUri}`;
+        window.location.href = loginUrl;
+      }
     </script>
-
-
-    <!--user pool-->  <script>
-  const poolData = {
-  UserPoolId: "us-east-1_syijijajr", // 👈 your actual User Pool ID (from AWS > Cognito > User Pools)
-  ClientId: "5uvkoo4cg7o1nj4uehinahpae8"
-};
-
-
-    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-        Username: email,
-        Password: password,
-      });
-
-      const userData = {
-        Username: email,
-        Pool: userPool
-      };
-
-      const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-      cognitoUser.authenticateUser(authDetails, {
-        onSuccess: (result) => {
-          console.log("✅ Login success:", result);
-          localStorage.setItem("cognitoToken", result.getAccessToken().getJwtToken());
-          window.location.href = "admin.html";
-        },
-        onFailure: (err) => {
-          alert("❌ Login failed: " + err.message || JSON.stringify(err));
-        }
-      });
-    }
-  </script>
-
-
-</body>
+  </body>
 </html>
