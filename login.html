@@ -10,12 +10,12 @@
   <button id="loginBtn">Login</button>
 
   <script>
-    const domain = "us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com";
+    const domain = "https://slancer-auth.auth.us-east-1.amazoncognito.com";
     const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
     const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
 
     document.getElementById("loginBtn").onclick = () => {
-      window.location.href = `https://us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com/login?client_id=69lhmcdcc1dcqevf41ogrbkidn&response_type=token&scope=email+openid&redirect_uri=https%3A%2F%2Fslancer-portfolio.s3.us-east-1.amazonaws.com%2Fadmin.html`;
+      window.location.href = `https://slancer-auth.auth.us-east-1.amazoncognito.com/login?client_id=69lhmcdcc1dcqevf41ogrbkidn&response_type=token&scope=email+openid&redirect_uri=https%3A%2F%2Fslancer-portfolio.s3.us-east-1.amazonaws.com%2Fadmin.html`;
     };
   </script>
 </body>
