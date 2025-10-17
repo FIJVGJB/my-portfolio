@@ -1,164 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard | Number of Visitors</title>
-  <style>
-    :root {
-      --bg-light: #f1f5f9;
-      --bg-dark: #0f172a;
-      --text-light: #0f172a;
-      --text-dark: #f8fafc;
-      --card-bg-light: #ffffff;
-      --card-bg-dark: #1e293b;
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    body.dark {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: var(--card-bg-light);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    body.dark header {
-      background: var(--card-bg-dark);
-    }
-    .title {
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-    .buttons {
-      display: flex;
-      gap: 10px;
-    }
-    button {
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #2563eb;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
-    .card {
-      background: var(--card-bg-light);
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      padding: 20px;
-      transition: background 0.3s ease;
-    }
-    body.dark .card {
-      background: var(--card-bg-dark);
-    }
-    .card h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .card p {
-      font-size: 0.9rem;
-      color: #475569;
-    }
-    body.dark .card p {
-      color: #cbd5e1;
-    }
-    .list {
-      margin-top: 10px;
-    }
-    .list li {
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
 </head>
-<body>
-  <header>
-    <div class="title">Admin Dashboard — Saad Waseem</div>
-    <div class="buttons">
-      <button id="toggleTheme">Toggle Theme</button>
-      <button id="logoutBtn">Logout</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="card">
-      <h2>Visitor Statistics</h2>
-      <p id="visitorCount">Total Visitors: <strong>Loading...</strong></p>
-      <small>(Live update integration coming soon)</small>
-    </div>
-
-    <div class="card">
-      <h2>Personal Goals</h2>
-      <ul class="list">
-        <li>🎯 Short-term: Secure a job as a Junior Cloud Engineer</li>
-        <li>📈 Medium-term: Build real-world AWS projects</li>
-        <li>🎓 Long-term: Complete MPhil and specialize in Cloud Security</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Required Documents</h2>
-      <ul class="list">
-        <li>📄 Resume</li>
-        <li>🧾 Cover Letter</li>
-        <li>🎓 Degree & Transcript</li>
-        <li>🪪 Certificates (AWS, Cloud Foundations, etc.)</li>
-        <li>📝 Recommendation Letters</li>
-        <li>📚 Statement of Purpose</li>
-      </ul>
-    </div>
-  </main>
+<body style="font-family:sans-serif;text-align:center;margin-top:10%;">
+  <h2>Welcome to Admin Dashboard</h2>
+  <p id="tokenStatus">Checking login...</p>
+  <button id="logoutBtn">Logout</button>
 
   <script>
-    // 1️⃣ THEME TOGGLE (works with your existing system)
-    const toggleTheme = document.getElementById('toggleTheme');
-    toggleTheme.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    });
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-    }
+    const domain = "us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com";
+    const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
+    const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/index.html";
 
-    // 2️⃣ CHECK LOGIN STATUS
-    const urlParams = new URLSearchParams(window.location.hash.substring(1));
-    const idToken = urlParams.get("id_token") || localStorage.getItem("id_token");
-    if (idToken) {
-      localStorage.setItem("id_token", idToken);
+    const hash = window.location.hash.substr(1);
+    const params = new URLSearchParams(hash);
+    const token = params.get("id_token") || localStorage.getItem("id_token");
+
+    if (token) {
+      localStorage.setItem("id_token", token);
+      document.getElementById("tokenStatus").innerText = "✅ Logged in successfully!";
     } else {
-      // Not logged in → redirect
       window.location.href = "login.html";
     }
 
-    // 3️⃣ LOGOUT BUTTON
-    document.getElementById("logoutBtn").addEventListener("click", () => {
+    document.getElementById("logoutBtn").onclick = () => {
       localStorage.removeItem("id_token");
-      window.location.href = "login.html";
-    });
-
-    // 4️⃣ FUTURE DYNAMODB INTEGRATION PLACEHOLDER
-    document.getElementById("visitorCount").innerHTML = "Total Visitors: <strong>27</strong>";
+      const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
+      window.location.href = logoutUrl;
+    };
   </script>
 </body>
 </html>

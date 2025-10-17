@@ -1,64 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Admin Dashboard</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f172a;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .login-container {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.3);
-      max-width: 400px;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-      margin-bottom: 30px;
-    }
-    button {
-      background-color: #3b82f6;
-      border: none;
-      padding: 12px 25px;
-      color: white;
-      font-size: 1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #2563eb;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Admin</title>
 </head>
-<body>
-  <div class="login-container">
-    <h1>Welcome Back</h1>
-    <p>Sign in to access your admin dashboard</p>
-    <button id="loginBtn">Login with AWS Cognito</button>
-  </div>
+<body style="font-family:sans-serif;text-align:center;margin-top:10%;">
+  <h2>Login with Cognito</h2>
+  <button id="loginBtn">Login</button>
 
   <script>
-    const loginBtn = document.getElementById("loginBtn");
-    loginBtn.addEventListener("click", () => {
-      window.location.href = "https://us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com/login?client_id=69lhmcdcc1dcqevf41ogrbkidn&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fslancer-portfolio.s3.us-east-1.amazonaws.com%2Fadmin.html";
-    });
+    const domain = "us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com";
+    const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
+    const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+
+    document.getElementById("loginBtn").onclick = () => {
+      window.location.href = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=openid+email&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    };
   </script>
 </body>
 </html>
