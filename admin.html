@@ -4,26 +4,215 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Slancer</title>
+
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="16x16" href="./public/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./public/logo.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="./public/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./public/logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./public/logo.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./public/logo.png">
+
   <style>
-    body { background:#0f172a; color:#fff; font-family:sans-serif; padding:2rem; }
-    header { display:flex; justify-content:space-between; align-items:center; }
-    .logout-btn { background:#ef4444; border:none; padding:10px 20px; color:white; border-radius:8px; cursor:pointer; }
-    .logout-btn:hover { background:#dc2626; }
+    body {
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background: #1e293b;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .nav-logo a {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #f8fafc;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #38bdf8;
+    }
+    .logout-btn {
+      background: #ef4444;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .logout-btn:hover { background: #dc2626; }
+
+    main {
+      padding: 2rem;
+      display: grid;
+      gap: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #38bdf8;
+    }
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #1e293b;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .card h2 {
+      color: #38bdf8;
+      font-size: 1.2rem;
+      margin-bottom: .5rem;
+    }
+    .progress {
+      height: 10px;
+      background: #334155;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: .5rem;
+    }
+    .progress-bar {
+      height: 10px;
+      background: #38bdf8;
+      width: var(--progress);
+    }
+    footer {
+      background: #1e293b;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .socials {
+      margin-top: 1rem;
+    }
+    .social-link {
+      margin-right: 10px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .login-hint {
+      background: #1e293b;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Admin Dashboard</h1>
-    <button id="logoutBtn" class="logout-btn">Logout</button>
-  </header>
-  <p id="status">Checking login...</p>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <a href="#home">Slancer</a>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><button id="logoutBtn" class="logout-btn">Logout</button></li>
+    </ul>
+  </nav>
+
+  <main id="dashboard">
+    <section>
+      <h1>Welcome, Admin 👋</h1>
+      <p id="status">Checking login...</p>
+    </section>
+
+    <div class="card-container" id="content" style="display:none;">
+      <div class="card">
+        <h2>Portfolio Completion</h2>
+        <p>Your AWS portfolio progress:</p>
+        <div class="progress"><div class="progress-bar" style="width:70%"></div></div>
+        <p>✅ 70% done — S3, CloudFront, Route53, Cognito setup complete.<br>
+        ⏳ Remaining: DynamoDB integration + Smart Chatbot + Analytics.</p>
+      </div>
+
+      <div class="card">
+        <h2>Career Goal Progress</h2>
+        <p>Target: Secure a Cloud job in Malaysia/Singapore within 2–3 years with M.Phil + solid AWS & DevOps skills.</p>
+        <div class="progress"><div class="progress-bar" style="width:45%"></div></div>
+        <p>🧠 You’ve built AWS projects, deployed to S3, and practiced Lambda, Lex, and DynamoDB.<br>
+        🎯 Next: CI/CD, containerization (Docker + ECS), and IaC basics (YAML + CloudFormation).</p>
+      </div>
+
+      <div class="card">
+        <h2>Current & Future Projects</h2>
+        <ul>
+          <li>✅ Portfolio on S3 + CloudFront + Route53</li>
+          <li>✅ Cognito Login Integration</li>
+          <li>🔄 Smart Chatbot (Lex + Lambda + S3)</li>
+          <li>🔄 Visitor Tracker using DynamoDB + Lambda</li>
+          <li>🟩 Recruiter Contact System (Cognito + SES)</li>
+          <li>🟦 Admin Analytics Dashboard</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Certifications / Alternatives</h2>
+        <ul>
+          <li>🎓 <b>AWS Certified Cloud Practitioner</b> – start here</li>
+          <li>🎓 <b>AWS Certified Solutions Architect – Associate</b> – after portfolio completion</li>
+          <li>🎓 <b>AWS Certified DevOps Engineer – Professional</b> – optional advanced goal</li>
+          <li>💡 Alternative: Build & document 5+ real AWS projects if skipping certifications</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Skill Development Roadmap</h2>
+        <ul>
+          <li>🟢 AWS Core (IAM, Lambda, DynamoDB, S3, CloudFront)</li>
+          <li>🟢 Python scripting + automation</li>
+          <li>🟠 Docker, CI/CD pipelines (GitHub Actions / CodePipeline)</li>
+          <li>🟠 YAML & IaC (CloudFormation basics)</li>
+          <li>🔵 Monitoring & Security (CloudWatch, GuardDuty)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="login-hint" id="loginHint" style="display:none;">
+      <p>⚠️ You are not logged in. Please use the <b>Login</b> button on your main site to access the Admin Dashboard.</p>
+    </div>
+
+    <section class="socials">
+      <a href="https://www.linkedin.com/in/saadwaseemfij" class="social-link" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+      <a href="https://github.com/FIJVGJB" class="social-link" target="_blank" rel="noopener noreferrer">🐱 GitHub</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Slancer Portfolio. All rights reserved.</p>
+  </footer>
 
   <script>
     const domain = "slancer.auth.us-east-1.amazoncognito.com";
     const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
     const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/index.html";
 
-    // Parse token from URL (if redirected from Cognito)
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const idToken = params.get("id_token");
@@ -32,17 +221,18 @@
       localStorage.setItem("id_token", idToken);
       window.history.replaceState({}, document.title, window.location.pathname);
       document.getElementById("status").innerText = "✅ Logged in";
+      document.getElementById("content").style.display = "grid";
     } else {
       const storedToken = localStorage.getItem("id_token");
-      if (!storedToken) {
-        // Not logged in → back to login
-        window.location.href = "login.html";
-      } else {
+      if (storedToken) {
         document.getElementById("status").innerText = "✅ Logged in (stored token)";
+        document.getElementById("content").style.display = "grid";
+      } else {
+        document.getElementById("status").innerText = "❌ Not logged in";
+        document.getElementById("loginHint").style.display = "block";
       }
     }
 
-    // Handle logout properly
     document.getElementById("logoutBtn").onclick = () => {
       localStorage.removeItem("id_token");
       const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
