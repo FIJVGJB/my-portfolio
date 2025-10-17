@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
 </head>
 <body style="font-family:sans-serif;text-align:center;margin-top:10%;">
   <h2>Welcome to Admin Dashboard</h2>
-  <p id="tokenStatus">Checking login...</p>
+  <p id="status">Checking login...</p>
   <button id="logoutBtn">Logout</button>
 
   <script>
-    const domain = "https://slancer-auth.auth.us-east-1.amazoncognito.com";
+    const domain = "slancer-auth.auth.us-east-1.amazoncognito.com";
     const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
     const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/index.html";
 
-    const hash = window.location.hash.substr(1);
+    const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
     const token = params.get("id_token") || localStorage.getItem("id_token");
 
     if (token) {
       localStorage.setItem("id_token", token);
-      document.getElementById("tokenStatus").innerText = "✅ Logged in successfully!";
+      document.getElementById("status").innerText = "✅ Logged in successfully!";
     } else {
       window.location.href = "login.html";
     }
 
     document.getElementById("logoutBtn").onclick = () => {
       localStorage.removeItem("id_token");
+      // Note: no https:// before domain variable here; it's added below
       const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
       window.location.href = logoutUrl;
     };
