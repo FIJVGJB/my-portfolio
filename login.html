@@ -1,88 +1,64 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Login | Slancer</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./public/logo.png" />
-  </head>
-  <body>
-    <nav class="navbar" id="navbar">
-      <div class="nav-container">
-        <div class="nav-logo">
-          <a href="/index.html#home">Slancer</a>
-        </div>
-        <ul class="nav-menu" id="nav-menu">
-          <li class="nav-item"><a href="/index.html#home" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="/index.html#about" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="/index.html#education" class="nav-link">Education</a></li>
-          <li class="nav-item"><a href="/index.html#projects" class="nav-link">Projects</a></li>
-          <li class="nav-item"><a href="/blog.html" class="nav-link">Blog</a></li>
-          <li class="nav-item"><a href="/index.html#contact" class="nav-link">Contact</a></li>
-          <li class="nav-item"><a href="/admin.html" class="nav-link">Admin</a></li>
-          <li class="nav-item">
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-              <span class="theme-icon">🌙</span>
-            </button>
-          </li>
-        </ul>
-        <div class="nav-toggle" id="nav-toggle">
-          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-        </div>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Admin Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .login-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 30px;
+    }
+    button {
+      background-color: #3b82f6;
+      border: none;
+      padding: 12px 25px;
+      color: white;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Welcome Back</h1>
+    <p>Sign in to access your admin dashboard</p>
+    <button id="loginBtn">Login with AWS Cognito</button>
+  </div>
 
-    <main>
-      <section id="login" style="padding:120px 0 80px; background: var(--bg-secondary);">
-        <div class="container" style="max-width:520px;">
-          <div class="contact-form" style="box-shadow: 0 10px 30px var(--shadow); text-align:center;">
-            <h2 class="section-title" style="margin-bottom:0.5rem;">Welcome Back</h2>
-            <p class="section-subtitle" style="margin-bottom:1.5rem;">Sign in to continue</p>
-
-            <!-- 👇 Replaced old form with one Cognito button -->
-            <button 
-              style="background:#38bdf8;color:#0f172a;padding:12px 18px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;"
-              onclick="signInWithCognito()">
-              Sign in with Cognito
-            </button>
-          </div>
-
-          <div style="margin-top:24px; display:grid; gap:16px;">
-            <a class="btn btn-outline" href="/index.html#projects">Explore Projects</a>
-            <a class="btn btn-outline" href="/index.html#about">About Slancer</a>
-            <a class="btn btn-outline" href="/index.html#contact">Contact</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <p>&copy; <span id="year"></span> Slancer Portfolio. All rights reserved.</p>
-          <div class="footer-links">
-            <a href="/privacy.html">Privacy</a>
-            <a href="/terms.html">Terms</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-<script>
-  // Redirect to Cognito hosted UI for sign-in
-  function signInWithCognito() {
-    const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
-    const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
-    const redirectUri = encodeURIComponent("https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html");
-    const scopes = "openid+email+profile";
-    const responseType = "token"; // we’ll use implicit flow for simple S3 sites
-
-    const loginUrl = `${domain}/login?client_id=${clientId}&response_type=${responseType}&scope=${scopes}&redirect_uri=${redirectUri}`;
-    window.location.href = loginUrl;
-  }
-</script>
-
-  </body>
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    loginBtn.addEventListener("click", () => {
+      window.location.href = "https://us-east-1axh3ajp14.auth.us-east-1.amazoncognito.com/login?client_id=69lhmcdcc1dcqevf41ogrbkidn&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fslancer-portfolio.s3.us-east-1.amazonaws.com%2Fadmin.html";
+    });
+  </script>
+</body>
 </html>
