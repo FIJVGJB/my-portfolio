@@ -205,6 +205,7 @@
         </li>
         <button onclick="logout()">Logout</button>
 
+
         <li class="nav-item" role="none">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
             <span class="theme-icon">🌙</span>
@@ -392,150 +393,36 @@
       </div>
     </div>
   </footer>
-
-  <!--user pool-->
-<script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.2.0/dist/amazon-cognito-identity.min.js"></script>
-
 <script>
-function logout() {
-  localStorage.removeItem('cognito_token');
-  window.location.href = 'https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/logout?client_id=5uvkoo4cg7o1nj4uehinahpae8&logout_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/loggin.html';
-}
-</script>
+const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
+const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
+const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/login.html";
 
-<script>
-
-    
-
-// Parse Cognito token from URL
-const hash = window.location.hash.substr(1);
-const result = hash.split('&').reduce(function (res, item) {
-  const parts = item.split('=');
-  res[parts[0]] = parts[1];
-  return res;
-}, {});
-
-if (result.access_token) {
-  localStorage.setItem('cognito_token', result.access_token);
-  window.history.replaceState({}, document.title, "admin.html");
-} else {
-  const token = localStorage.getItem('cognito_token');
-  if (!token) {
-    window.location.href = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com/login?client_id=5uvkoo4cg7o1nj4uehinahpae8&response_type=token&scope=email+openid+phone&redirect_uri=https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
-  }
-}
-
-
-
-
-
-// Extract Cognito tokens from URL after login
+// --- 1. Check if coming back from Cognito ---
 const hash = window.location.hash.substr(1);
 const params = new URLSearchParams(hash);
-const idToken = params.get("id_token");
+const idToken = params.get("id_token") || params.get("access_token");
 
+// --- 2. Store token locally ---
 if (idToken) {
-  localStorage.setItem("cognitoToken", idToken);
-  // Clean URL (remove token fragment)
-  window.location.hash = "";
+  localStorage.setItem("cognito_token", idToken);
+  window.history.replaceState({}, document.title, window.location.pathname); // clean URL
 }
 
-
-
-
-
-
- const poolData = {
-  UserPoolId: "us-east-1_ea56492013a34891b3113dc1f6997a47", // your actual User Pool ID
-  ClientId: "5uvkoo4cg7o1nj4uehinahpae8"
-};
-
-  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-  const cognitoUser = userPool.getCurrentUser();
-
- if (!cognitoUser) {
-  // Redirect user to the Cognito Hosted UI
-const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
-  const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
-  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
-  const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
-  window.location.href = loginUrl;
+// --- 3. Check login status ---
+const token = localStorage.getItem("cognito_token");
+if (!token) {
+  // Redirect to Cognito hosted UI if not logged in
+  window.location.href = `${domain}/login?client_id=${clientId}&response_type=token&scope=openid+email+profile&redirect_uri=${redirectUri}`;
 }
-else {
-    cognitoUser.getSession((err, session) => {
-      if (err || !session.isValid()) {
-        window.location.href = "login.html";
-        return;
-      }
-      console.log("✅ Logged in as:", cognitoUser.getUsername());
-    });
-  }
 
-  function logout() {
-    const user = userPool.getCurrentUser();
-    if (user) user.signOut();
-    localStorage.removeItem("cognitoToken");
-    window.location.href = "login.html";
-  }
+// --- 4. Logout Function ---
+function logout() {
+  localStorage.removeItem("cognito_token");
+  window.location.href = `${domain}/logout?client_id=${clientId}&logout_uri=${logoutRedirect}`;
+}
 </script>
 
-
-  <script src="script.js"></script>
-  <script>
-// Check if logged in
-const token = localStorage.getItem("cognitoToken");
-if (!token) {
-  window.location.href = "login.html";
-}
-
-// Logout
-document.getElementById("logoutBtn").onclick = () => {
-  localStorage.removeItem("cognitoToken");
-  window.location.href = "login.html";
-};
-
-
-
-
-    function countUp(el, to, duration = 800) {
-      const start = 0;
-      const startTime = performance.now();
-      function tick(now) {
-        const p = Math.min(1, (now - startTime) / duration);
-        const val = Math.floor(start + (to - start) * p);
-        el.textContent = val.toLocaleString();
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-      const totals = { total: 173, today: 12, active: 1, score: 64 };
-      Object.entries(totals).forEach(([k,v]) => {
-        const el = document.querySelector(`[data-kpi="${k}"]`);
-        if (el) countUp(el, v);
-      });
-
-      document.getElementById("exportCsvBtn")?.addEventListener("click", () => {
-        console.log("[v0] Export CSV clicked");
-        alert("Export CSV is a placeholder. Connect your /visitors API to download data.");
-      });
-      document.getElementById("recomputeBtn")?.addEventListener("click", () => {
-        console.log("[v0] Recompute Score clicked");
-        alert("Recompute is a placeholder. Wire this to your score Lambda.");
-      });
-      document.getElementById("clearBtn")?.addEventListener("click", () => {
-        console.log("[v0] Clear demo data clicked");
-        alert("Clear data is a placeholder. Protect with admin auth before enabling.");
-      });
-      document.getElementById("logoutBtn")?.addEventListener("click", () => {
-        console.log("[v0] Logout clicked");
-        alert("Implement Cognito logout to clear tokens.");
-      });
-    });
-
-
-
-    
-     </script>
 </body>
 </html>

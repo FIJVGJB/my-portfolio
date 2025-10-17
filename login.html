@@ -70,20 +70,19 @@
       </div>
     </footer>
 
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  // Redirect to Cognito hosted UI for sign-in
+  function signInWithCognito() {
+    const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
+    const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
+    const redirectUri = encodeURIComponent("https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html");
+    const scopes = "openid+email+profile";
+    const responseType = "token"; // we’ll use implicit flow for simple S3 sites
 
-      // Redirect to Cognito hosted login page
-      function signInWithCognito() {
-        const clientId = "5uvkoo4cg7o1nj4uehinahpae8";
-        const domain = "https://us-east-1syijijajr.auth.us-east-1.amazoncognito.com";
-        const redirectUri = encodeURIComponent("https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html");
-        const scopes = "email+openid+phone";
-        const responseType = "code"; // Use 'code' for secure redirect
+    const loginUrl = `${domain}/login?client_id=${clientId}&response_type=${responseType}&scope=${scopes}&redirect_uri=${redirectUri}`;
+    window.location.href = loginUrl;
+  }
+</script>
 
-        const loginUrl = `${domain}/login?client_id=${clientId}&response_type=${responseType}&scope=${scopes}&redirect_uri=${redirectUri}`;
-        window.location.href = loginUrl;
-      }
-    </script>
   </body>
 </html>
