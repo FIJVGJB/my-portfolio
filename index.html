@@ -15,50 +15,58 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./public/logo.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./public/logo.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./public/logo.png">
+ 
+
+<!-- script for login and navigate to cognito-->
 
 
 </head>
-<body>
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">Slancer</a>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#education" class="nav-link">Education</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./blog.html" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a href="./login.html" class="nav-link">Login</a>
-                </li>
-                <li class="nav-item">
-                    <button class="theme-toggle" id="theme-toggle">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </li>
-            </ul>
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+<body><nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <a href="#home">Slancer</a>
+    </div>
+    <ul class="nav-menu" id="nav-menu">
+      <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+      <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+      <li class="nav-item"><a href="./blog.html" class="nav-link">Blog</a></li>
+      <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+
+      <!-- ✅ Change this -->
+      <li class="nav-item">
+        <a href="#" id="loginBtn" class="nav-link">Login</a>
+      </li>
+
+      <li class="nav-item">
+        <button class="theme-toggle" id="theme-toggle">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="nav-toggle" id="nav-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // 🟩 AWS Cognito Hosted UI config
+  const domain = "slancer.auth.us-east-1.amazoncognito.com";
+  const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
+  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+
+  document.getElementById("loginBtn").addEventListener("click", (event) => {
+    event.preventDefault(); // stop normal link behavior
+    const loginUrl = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    window.location.href = loginUrl;
+  });
+</script>
+
 
     <section id="home" class="hero">
         <div class="hero-background">
