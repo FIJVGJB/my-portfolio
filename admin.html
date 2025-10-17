@@ -1,35 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin</title>
 </head>
-<body style="font-family:sans-serif;text-align:center;margin-top:10%;">
-  <h2>Welcome to Admin Dashboard</h2>
+<body style="font-family:sans-serif;text-align:center;margin-top:8%;">
+  <h2>Admin Dashboard</h2>
   <p id="status">Checking login...</p>
   <button id="logoutBtn">Logout</button>
 
   <script>
-    const domain = "slancer-auth.auth.us-east-1.amazoncognito.com";
-    const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
+    const domain = "slancer.auth.us-east-1.amazoncognito.com";
+    const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
     const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/index.html";
 
+    // Read token from URL fragment (id_token) OR from localStorage
     const hash = window.location.hash.substring(1);
     const params = new URLSearchParams(hash);
-    const token = params.get("id_token") || localStorage.getItem("id_token");
+    const idTokenFromHash = params.get("id_token");
+    const stored = localStorage.getItem("id_token");
 
-    if (token) {
-      localStorage.setItem("id_token", token);
-      document.getElementById("status").innerText = "✅ Logged in successfully!";
+    if (idTokenFromHash) {
+      // Save token and clean URL
+      localStorage.setItem("id_token", idTokenFromHash);
+      document.getElementById("status").innerText = "✅ Logged in (fresh)";
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (stored) {
+      document.getElementById("status").innerText = "✅ Logged in (from storage)";
     } else {
+      // not logged in -> go to login page
       window.location.href = "login.html";
     }
 
     document.getElementById("logoutBtn").onclick = () => {
+      // Clear local tokens
       localStorage.removeItem("id_token");
-      // Note: no https:// before domain variable here; it's added below
+      sessionStorage.clear();
+
+      // Build logout URL exactly (no extra https/)
       const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
+      // Go to Cognito logout which should end the session and redirect to index.html
       window.location.href = logoutUrl;
     };
   </script>

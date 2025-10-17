@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Admin</title>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login</title>
 </head>
-<body style="font-family:sans-serif;text-align:center;margin-top:10%;">
+<body style="font-family:sans-serif;text-align:center;margin-top:8%;">
   <h2>Login with Cognito</h2>
   <button id="loginBtn">Login</button>
 
   <script>
-    const domain = "slancer-auth.auth.us-east-1.amazoncognito.com";
-    const clientId = "1t4ld3aee5u7i56jd9iiah1i2d1vrsthih5ds1615n8nhorqm68n";
+    // exact working domain + client id you provided
+    const domain = "slancer.auth.us-east-1.amazoncognito.com";
+    const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
     const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
 
     document.getElementById("loginBtn").onclick = () => {
-      const loginUrl = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=openid+email&redirect_uri=${encodeURIComponent(redirectUri)}`;
-      window.location.href = loginUrl;
+      // response_type=token so Cognito returns id_token in the URL fragment
+      const url = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
+      window.location.href = url;
     };
   </script>
 </body>
