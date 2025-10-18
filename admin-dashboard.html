@@ -457,18 +457,7 @@
           <a href="./index.html#contact" class="nav-link" role="menuitem">Contact</a>
         </li>
         <li class="nav-item" role="none">
-          <button id="logoutBtn" class="logout-btn" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ef4444;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 999;
-">Logout</button>
+          <a href="./admin.html" class="nav-link" aria-current="page" role="menuitem">Admin</a>
         </li>
         <li class="nav-item" role="none">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
@@ -490,6 +479,11 @@
           <div class="admin-header-left">
             <h1>Admin Dashboard</h1>
             <p class="section-subtitle" style="margin: 0.5rem 0 0 0;">Welcome, <strong>Saad Waseem</strong></p>
+          </div>
+          <div class="admin-status" id="status">
+            <div class="status-dot"></div>
+            <span class="status-text">Logged in</span>
+            <button class="btn btn-outline" id="logoutBtn" style="padding: 4px 12px; font-size: 0.85rem; margin-left: 0.5rem;">Log out</button>
           </div>
         </div>
 
@@ -838,86 +832,80 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="domain.tsx"></script>
-<script>
-  // --- AWS Cognito Config ---
-  const domain = "slancer.auth.us-east-1.amazoncognito.com";
-  const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
-  const logoutRedirect = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/index.html";
-
-  // --- Count Animation ---
-  function countUp(el, to, duration = 800) {
-    const start = 0;
-    const startTime = performance.now();
-    function tick(now) {
-      const p = Math.min(1, (now - startTime) / duration);
-      const val = Math.floor(start + (to - start) * p);
-      el.textContent = val.toLocaleString();
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const idToken = localStorage.getItem("id_token");
-
-    // 🔒 Check authentication
-    if (!idToken) {
-      console.log("[v0] No id_token found, redirecting to login");
-      // Uncomment if you want to force login:
-      // window.location.href = "./login.html";
-    } else {
-      console.log("[v0] User authenticated with token");
-    }
-
-    // 📊 Populate KPI values with sample data
-    const totals = { total: 173, today: 12, active: 1, score: 64 };
-    Object.entries(totals).forEach(([k, v]) => {
-      const el = document.querySelector(`[data-kpi="${k}"]`);
-      if (el) countUp(el, v);
-    });
-
-    // 💾 Export CSV
-    document.getElementById("exportCsvBtn")?.addEventListener("click", () => {
-      console.log("[v0] Export CSV clicked");
-      alert("Export CSV: Connect to /visitors API to download visitor data as CSV");
-    });
-
-    // 🧮 Recompute Score
-    document.getElementById("recomputeBtn")?.addEventListener("click", () => {
-      console.log("[v0] Recompute Score clicked");
-      const scoreEl = document.querySelector(".score");
-      const newScore = Math.floor(Math.random() * 40) + 60;
-      countUp(scoreEl, newScore);
-      alert(`Score recomputed: ${newScore}/100`);
-    });
-
-    // ✅ Checklist persistence
-    document.querySelectorAll(".checklist-item input[type='checkbox']").forEach(checkbox => {
-      const key = `doc_${checkbox.id}`;
-      if (localStorage.getItem(key)) {
-        checkbox.checked = JSON.parse(localStorage.getItem(key));
+  <script>
+    function countUp(el, to, duration = 800) {
+      const start = 0;
+      const startTime = performance.now();
+      function tick(now) {
+        const p = Math.min(1, (now - startTime) / duration);
+        const val = Math.floor(start + (to - start) * p);
+        el.textContent = val.toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
       }
-      checkbox.addEventListener("change", () => {
-        localStorage.setItem(key, JSON.stringify(checkbox.checked));
+      requestAnimationFrame(tick);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check for Cognito id_token in localStorage
+      const idToken = localStorage.getItem("id_token");
+      const statusEl = document.getElementById("status");
+      
+      if (!idToken) {
+        console.log("[v0] No id_token found, redirecting to login");
+        // Redirect to login if no token
+        // window.location.href = "./login.html";
+      } else {
+        console.log("[v0] User authenticated with token");
+      }
+
+      // Populate KPI values with sample data
+      const totals = { total: 173, today: 12, active: 1, score: 64 };
+      Object.entries(totals).forEach(([k, v]) => {
+        const el = document.querySelector(`[data-kpi="${k}"]`);
+        if (el) countUp(el, v);
+      });
+
+      // Export CSV button
+      document.getElementById("exportCsvBtn")?.addEventListener("click", () => {
+        console.log("[v0] Export CSV clicked");
+        alert("Export CSV: Connect to /visitors API to download visitor data as CSV");
+      });
+
+      // Recompute Score button
+      document.getElementById("recomputeBtn")?.addEventListener("click", () => {
+        console.log("[v0] Recompute Score clicked");
+        const scoreEl = document.querySelector(".score");
+        const newScore = Math.floor(Math.random() * 40) + 60;
+        countUp(scoreEl, newScore);
+        alert(`Score recomputed: ${newScore}/100`);
+      });
+
+      // Logout button
+      const logoutBtns = document.querySelectorAll("#logoutBtn");
+      logoutBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          console.log("[v0] Logout clicked");
+          // Clear Cognito tokens
+          localStorage.removeItem("id_token");
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          alert("Logged out successfully");
+          // Redirect to login
+          // window.location.href = "./login.html";
+        });
+      });
+
+      // Document checklist persistence
+      document.querySelectorAll(".checklist-item input[type='checkbox']").forEach(checkbox => {
+        const key = `doc_${checkbox.id}`;
+        if (localStorage.getItem(key)) {
+          checkbox.checked = JSON.parse(localStorage.getItem(key));
+        }
+        checkbox.addEventListener("change", () => {
+          localStorage.setItem(key, JSON.stringify(checkbox.checked));
+        });
       });
     });
-
-    // 🟢 Logout handler (Cognito)
-    const logoutBtn = document.getElementById("logoutBtn");
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("id_token");
-      sessionStorage.clear();
-      console.log("[v0] Logging out...");
-      const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
-      window.location.href = logoutUrl;
-    });
-
-    // Optional: update status after login
-    if (typeof updateAuthStatus === 'function') {
-      updateAuthStatus();
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
