@@ -450,26 +450,17 @@
         <li class="nav-item" role="none">
           <a href="./index.html#projects" class="nav-link" role="menuitem">Projects</a>
         </li>
-        <li class="nav-item" role="none">
-          <a href="./blog.html" class="nav-link" role="menuitem">Blog</a>
-        </li>
+        <!-- 🔹 Navbar item (add this where your Login item was) -->
+<li class="nav-item" role="none">
+  <a href="#" id="logoutBtn" class="nav-link" role="menuitem">Logout</a>
+</li>
+
         <li class="nav-item" role="none">
           <a href="./index.html#contact" class="nav-link" role="menuitem">Contact</a>
         </li>
         <li class="nav-item" role="none">
-          <button id="logoutBtn" class="logout-btn" style="
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ef4444;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 999;
-">Logout</button>
         </li>
+        
         <li class="nav-item" role="none">
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
             <span class="theme-icon">🌙</span>
@@ -695,7 +686,7 @@
             </div>
             <div class="project-item">
               <span class="project-name">Web App on EC2</span>
-              <span class="project-status">Active</span>
+              <span class="project-status">DOne</span>
             </div>
             <div class="project-item">
               <span class="project-name">Cloud Blog</span>
@@ -703,11 +694,11 @@
             </div>
             <div class="project-item">
               <span class="project-name">Auto Scaling Setup</span>
-              <span class="project-status">Backlog</span>
+              <span class="project-status">Pending</span>
             </div>
             <div class="project-item">
               <span class="project-name">Load Balancer Config</span>
-              <span class="project-status">Backlog</span>
+              <span class="project-status">Pending</span>
             </div>
           </div>
         </div>
@@ -804,27 +795,7 @@
           </div>
         </div>
 
-        <!-- Settings -->
-        <div class="admin-card" id="settingsCard">
-          <h3>Settings</h3>
-          <div style="display: grid; gap: 1rem;">
-            <div>
-              <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary);">Theme</label>
-              <select style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary);">
-                <option>Auto (System)</option>
-                <option>Light</option>
-                <option>Dark</option>
-              </select>
-            </div>
-            <div>
-              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-primary);">
-                <input type="checkbox" checked /> Auto-refresh every 5 min
-              </label>
-            </div>
-            <button class="btn btn-primary" type="button" id="logoutBtn" style="width: 100%;">Log out</button>
-            <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">API Status: <strong style="color: #22c55e;">✓ Connected</strong></p>
-          </div>
-        </div>
+
       </div>
     </section>
   </main>
