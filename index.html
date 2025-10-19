@@ -159,11 +159,12 @@
       </div>
     </div>
   </div>
-</section>
-<script>
+</section><script>
   // === AWS Config ===
-  const apiUrl = "https://263fytxsbf.execute-api.us-east-1.amazonaws.com/prod/visitor"; // Your API Gateway endpoint
-
+  const apiUrl = "https://263fytxsbf.execute-api.us-east-1.amazonaws.com/prod/visitor";
+  const domain = "slancer.auth.us-east-1.amazoncognito.com";
+  const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
+  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
 
   // === Counter Animation ===
   function countUp(el, to, duration = 800) {
@@ -178,15 +179,24 @@
     requestAnimationFrame(tick);
   }
 
+  // === Generate a simple unique ID ===
+  function generateVisitorId() {
+    return 'v-' + Math.random().toString(36).substring(2, 10);
+  }
+
   // === Add a new visitor (POST request) ===
-  async function addVisitor() {
+  async function addVisitor(visitorId) {
     try {
       await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ page: "main", timestamp: new Date().toISOString() })
+        body: JSON.stringify({
+          page: "main",
+          visitorId: visitorId,
+          timestamp: new Date().toISOString()
+        })
       });
-      console.log("[VisitorTracker] New visitor recorded ✅");
+      console.log("[VisitorTracker] New visitor recorded ✅", visitorId);
     } catch (err) {
       console.error("[VisitorTracker] Error adding visitor:", err);
     }
@@ -197,13 +207,9 @@
     try {
       const res = await fetch(apiUrl);
       const result = await res.json();
-
-      // Some Lambda setups return stringified JSON inside `body`
       const data = typeof result.body === "string" ? JSON.parse(result.body) : result;
-
       const total = data.total || 0;
-      const el = document.getElementById("visitorTotal");
-      if (el) countUp(el, total);
+      countUp(document.getElementById("visitorTotal"), total);
     } catch (err) {
       console.error("[VisitorTracker] Error fetching visitor stats:", err);
     }
@@ -211,13 +217,19 @@
 
   // === Initialize ===
   document.addEventListener("DOMContentLoaded", async () => {
-    // 1️⃣ Record a new visitor
-    await addVisitor();
+    // Get or create visitor ID
+    let visitorId = localStorage.getItem("visitorId");
+    if (!visitorId) {
+      visitorId = generateVisitorId();
+      localStorage.setItem("visitorId", visitorId);
+      await addVisitor(visitorId); // Only record first time
+    } else {
+      console.log("[VisitorTracker] Returning visitor:", visitorId);
+    }
 
-    // 2️⃣ Fetch and update visitor count
     await fetchVisitorStats();
 
-    // 3️⃣ Handle Cognito login redirection for stats view
+    // Login redirection
     document.getElementById("viewStats").addEventListener("click", (e) => {
       e.preventDefault();
       const url = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
