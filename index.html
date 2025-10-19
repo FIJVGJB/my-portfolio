@@ -154,7 +154,7 @@
           <span class="icon">👁️</span>
           <span class="label">Visitors:</span>
           <span class="value" id="visitorTotal">0</span><br><br>
-          <a href="#" id="viewStats" class="view-stats">Login to view full stats</a>
+          
         </div>
       </div>
     </div>
@@ -163,9 +163,7 @@
 <script>
   // === AWS Config ===
   const apiUrl = "https://263fytxsbf.execute-api.us-east-1.amazonaws.com/prod/visitor"; // Your API Gateway endpoint
-  const domain = "slancer.auth.us-east-1.amazoncognito.com";
-  const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
-  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+
 
   // === Counter Animation ===
   function countUp(el, to, duration = 800) {
