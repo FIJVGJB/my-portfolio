@@ -809,8 +809,7 @@
   </footer>
 
   <script src="script.js"></script>
-  <script src="domain.tsx"></script>
-<script>
+  <script src="domain.tsx"></script><script>
   // --- AWS Cognito Config ---
   const domain = "slancer.auth.us-east-1.amazoncognito.com";
   const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
@@ -829,66 +828,59 @@
     requestAnimationFrame(tick);
   }
 
+  // --- Visitor Counter (temporary localStorage simulation) ---
+  function getVisitorData() {
+    const stored = localStorage.getItem("visitor_data");
+    return stored ? JSON.parse(stored) : { total: 0, today: 0, active: 0, visitors: [] };
+  }
+
+  function saveVisitorData(data) {
+    localStorage.setItem("visitor_data", JSON.stringify(data));
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const idToken = localStorage.getItem("id_token");
 
     // 🔒 Check authentication
     if (!idToken) {
-      console.log("[v0] No id_token found, redirecting to login");
-      // Uncomment if you want to force login:
+      console.log("[auth] No token found, redirecting to login");
       // window.location.href = "./login.html";
-    } else {
-      console.log("[v0] User authenticated with token");
     }
 
-    // 📊 Populate KPI values with sample data
-    const totals = { total: 173, today: 12, active: 1, score: 64 };
-    Object.entries(totals).forEach(([k, v]) => {
-      const el = document.querySelector(`[data-kpi="${k}"]`);
-      if (el) countUp(el, v);
+    // 📊 Load visitor data
+    const data = getVisitorData();
+    if (!data.total) {
+      data.total = Math.floor(Math.random() * 200) + 100; // simulate
+      data.today = Math.floor(Math.random() * 10) + 1;
+      data.active = Math.floor(Math.random() * 3) + 1;
+      saveVisitorData(data);
+    }
+
+    // ✅ Update counters
+    document.querySelectorAll("[data-kpi]").forEach((el) => {
+      const key = el.getAttribute("data-kpi");
+      countUp(el, data[key] || 0);
     });
 
-    // 💾 Export CSV
-    document.getElementById("exportCsvBtn")?.addEventListener("click", () => {
-      console.log("[v0] Export CSV clicked");
-      alert("Export CSV: Connect to /visitors API to download visitor data as CSV");
-    });
+    // ✅ Show visitor list (if you want to show visitor info)
+    const visitorList = document.getElementById("visitorList");
+    if (visitorList && data.visitors.length > 0) {
+      visitorList.innerHTML = data.visitors
+        .map(v => `<li>${v.name} — ${v.country} (${v.time})</li>`)
+        .join("");
+    }
 
-    // 🧮 Recompute Score
-    document.getElementById("recomputeBtn")?.addEventListener("click", () => {
-      console.log("[v0] Recompute Score clicked");
-      const scoreEl = document.querySelector(".score");
-      const newScore = Math.floor(Math.random() * 40) + 60;
-      countUp(scoreEl, newScore);
-      alert(`Score recomputed: ${newScore}/100`);
-    });
-
-    // ✅ Checklist persistence
-    document.querySelectorAll(".checklist-item input[type='checkbox']").forEach(checkbox => {
-      const key = `doc_${checkbox.id}`;
-      if (localStorage.getItem(key)) {
-        checkbox.checked = JSON.parse(localStorage.getItem(key));
-      }
-      checkbox.addEventListener("change", () => {
-        localStorage.setItem(key, JSON.stringify(checkbox.checked));
-      });
-    });
-
-    // 🟢 Logout handler (Cognito)
+    // 🟢 Logout
     const logoutBtn = document.getElementById("logoutBtn");
     logoutBtn.addEventListener("click", () => {
       localStorage.removeItem("id_token");
       sessionStorage.clear();
-      console.log("[v0] Logging out...");
+      console.log("[auth] Logging out...");
       const logoutUrl = `https://${domain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirect)}`;
       window.location.href = logoutUrl;
     });
-
-    // Optional: update status after login
-    if (typeof updateAuthStatus === 'function') {
-      updateAuthStatus();
-    }
   });
 </script>
+
 </body>
 </html>

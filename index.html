@@ -17,8 +17,43 @@
 <link rel="icon" type="image/png" sizes="512x512" href="./public/logo.png">
  
 
-<!-- script for login and navigate to cognito-->
+<!-- css of visitor counter-->
+<style>
+    .visitor-key {
+  display: inline-flex;
+  align-items: center;
+  background: #1e293b; /* Dark blue-gray card background */
+  color: #f8fafc; /* Light text */
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.visitor-key:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.visitor-key .icon {
+  font-size: 1.3rem;
+  margin-right: 0.6rem;
+}
+
+.visitor-key .label {
+  color: #94a3b8; /* Slightly lighter label */
+  margin-right: 0.3rem;
+}
+
+.visitor-key .value {
+  font-weight: 600;
+  color: #38bdf8; /* Light blue accent for number */
+}
+
+</style>
 
 </head>
 <body><nav class="navbar" id="navbar">
@@ -88,6 +123,10 @@
             <div class="scroll-arrow"></div>
         </div>
     </section>
+<!--Vissitor-->
+
+
+
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
@@ -109,6 +148,85 @@
         </p>
 
         <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
+
+        <!-- visitor count area -->
+        <div class="visitor-key" style="margin-top:15px;">
+          <span class="icon">👁️</span>
+          <span class="label">Visitors:</span>
+          <span class="value" id="visitorTotal">0</span><br><br>
+          <a href="#" id="viewStats" class="view-stats">Login to view full stats</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  // === AWS Config ===
+  const apiUrl = "https://263fytxsbf.execute-api.us-east-1.amazonaws.com/prod/visitor"; // Your API Gateway endpoint
+  const domain = "slancer.auth.us-east-1.amazoncognito.com";
+  const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
+  const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
+
+  // === Counter Animation ===
+  function countUp(el, to, duration = 800) {
+    const start = 0;
+    const startTime = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - startTime) / duration);
+      const val = Math.floor(start + (to - start) * p);
+      el.textContent = val.toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // === Add a new visitor (POST request) ===
+  async function addVisitor() {
+    try {
+      await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page: "main", timestamp: new Date().toISOString() })
+      });
+      console.log("[VisitorTracker] New visitor recorded ✅");
+    } catch (err) {
+      console.error("[VisitorTracker] Error adding visitor:", err);
+    }
+  }
+
+  // === Fetch total visitors (GET request) ===
+  async function fetchVisitorStats() {
+    try {
+      const res = await fetch(apiUrl);
+      const result = await res.json();
+
+      // Some Lambda setups return stringified JSON inside `body`
+      const data = typeof result.body === "string" ? JSON.parse(result.body) : result;
+
+      const total = data.total || 0;
+      const el = document.getElementById("visitorTotal");
+      if (el) countUp(el, total);
+    } catch (err) {
+      console.error("[VisitorTracker] Error fetching visitor stats:", err);
+    }
+  }
+
+  // === Initialize ===
+  document.addEventListener("DOMContentLoaded", async () => {
+    // 1️⃣ Record a new visitor
+    await addVisitor();
+
+    // 2️⃣ Fetch and update visitor count
+    await fetchVisitorStats();
+
+    // 3️⃣ Handle Cognito login redirection for stats view
+    document.getElementById("viewStats").addEventListener("click", (e) => {
+      e.preventDefault();
+      const url = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
+      window.location.href = url;
+    });
+  });
+</script>
 
       </div>
     </div>
