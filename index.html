@@ -124,9 +124,6 @@
         </div>
     </section>
 <!--Vissitor-->
-
-
-
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
@@ -149,17 +146,18 @@
 
         <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
 
-        <!-- visitor count area -->
+        <!-- 👁 Visitor Count Display -->
         <div class="visitor-key" style="margin-top:15px;">
           <span class="icon">👁️</span>
           <span class="label">Visitors:</span>
-          <span class="value" id="visitorTotal">0</span><br><br>
-          
+          <span class="value" id="visitorTotal">0</span>
         </div>
       </div>
     </div>
   </div>
-</section><script>
+</section>
+
+<script>
   // === AWS Config ===
   const apiUrl = "https://263fytxsbf.execute-api.us-east-1.amazonaws.com/prod/visitor";
   const domain = "slancer.auth.us-east-1.amazoncognito.com";
@@ -179,12 +177,12 @@
     requestAnimationFrame(tick);
   }
 
-  // === Generate a simple unique ID ===
+  // === Generate Unique Visitor ID ===
   function generateVisitorId() {
     return 'v-' + Math.random().toString(36).substring(2, 10);
   }
 
-  // === Add a new visitor (POST request) ===
+  // === Add New Visitor (POST) ===
   async function addVisitor(visitorId) {
     try {
       await fetch(apiUrl, {
@@ -202,7 +200,7 @@
     }
   }
 
-  // === Fetch total visitors (GET request) ===
+  // === Fetch Total Visitors (GET) ===
   async function fetchVisitorStats() {
     try {
       const res = await fetch(apiUrl);
@@ -217,94 +215,27 @@
 
   // === Initialize ===
   document.addEventListener("DOMContentLoaded", async () => {
-    // Get or create visitor ID
     let visitorId = localStorage.getItem("visitorId");
     if (!visitorId) {
       visitorId = generateVisitorId();
       localStorage.setItem("visitorId", visitorId);
-      await addVisitor(visitorId); // Only record first time
+      await addVisitor(visitorId);
     } else {
       console.log("[VisitorTracker] Returning visitor:", visitorId);
     }
 
     await fetchVisitorStats();
 
-    // Login redirection
-    document.getElementById("viewStats").addEventListener("click", (e) => {
-      e.preventDefault();
-      const url = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
-      window.location.href = url;
-    });
+    // Keep login redirection untouched
+    const viewStatsBtn = document.getElementById("viewStats");
+    if (viewStatsBtn) {
+      viewStatsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const url = `https://${domain}/login?client_id=${clientId}&response_type=token&scope=email+openid&redirect_uri=${encodeURIComponent(redirectUri)}`;
+        window.location.href = url;
+      });
+    }
   });
-</script>
-
-      </div>
-    </div>
-  </div>
-</section>
-<style>.visitor-card {
-  margin-top: 25px;
-  padding: 15px 20px;
-  background: #f8f9fa;
-  border: 1px solid #e3e3e3;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  max-width: 300px;
-  transition: all 0.3s ease;
-}
-
-.visitor-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.visitor-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 6px;
-}
-
-.visitor-count {
-  font-size: 0.95rem;
-  color: #555;
-}
-</style>
-
-
-<!--visitorcountjavacode-->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const counterElement = document.getElementById("visitorCount");
-
-  // Replace this with your actual API Gateway URL
-  const apiUrl = "https://your-api-id.execute-api.us-east-1.amazonaws.com/prod/count";
-
-  // Fetch visitor count safely
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.text(); // or .json() if your Lambda returns JSON
-    })
-    .then(data => {
-      // Handle both text and JSON responses gracefully
-      let countValue;
-      try {
-        const jsonData = JSON.parse(data);
-        countValue = jsonData.count || jsonData.visitorCount || data;
-      } catch {
-        countValue = data;
-      }
-
-      counterElement.textContent = `👁 ${countValue} total visitors`;
-    })
-    .catch(error => {
-      console.error("Visitor counter error:", error);
-      counterElement.textContent = "👁 Unable to load visitors";
-    });
-});
 </script>
 
 
