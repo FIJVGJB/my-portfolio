@@ -150,15 +150,14 @@
         <div class="visitor-key" style="margin-top:15px;">
           <span class="icon">👁️</span>
           <span class="label">Visitors:</span>
-          <span class="value" id="visitorTotal">0</span>
+<span id="visitorTotal">0</span>
         </div>
       </div>
     </div>
   </div>
-</section>
-<script>
+</section><script>
   // === AWS Config ===
-  const apiUrl = "https://8lkxh78axg.execute-api.us-east-1.amazonaws.com/prod/visit"; // ✅ correct endpoint
+  const apiUrl = "https://8lkxh78axg.execute-api.us-east-1.amazonaws.com/prod/visit"; // ✅ Correct endpoint
   const domain = "slancer.auth.us-east-1.amazoncognito.com";
   const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
   const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
@@ -205,27 +204,36 @@
       const res = await fetch(apiUrl);
       const data = await res.json(); // Lambda returns {"total": N}
       const total = data.total || 0;
-      countUp(document.getElementById("visitorTotal"), total);
+      const el = document.getElementById("visitorTotal");
+      if (el) countUp(el, total);
       console.log("[VisitorTracker] Total visitors:", total);
     } catch (err) {
       console.error("[VisitorTracker] Error fetching visitor stats:", err);
     }
   }
 
+  // === Combined Visitor Update ===
+  async function updateVisitor() {
+    try {
+      // POST (register new or repeat visitor)
+      const visitorId = localStorage.getItem("visitorId") || generateVisitorId();
+      if (!localStorage.getItem("visitorId")) {
+        localStorage.setItem("visitorId", visitorId);
+        await addVisitor(visitorId);
+      }
+
+      // GET (update total)
+      await fetchVisitorStats();
+    } catch (err) {
+      console.error("[VisitorTracker] UpdateVisitor Error:", err);
+    }
+  }
+
   // === Initialize ===
   document.addEventListener("DOMContentLoaded", async () => {
-    let visitorId = localStorage.getItem("visitorId");
-    if (!visitorId) {
-      visitorId = generateVisitorId();
-      localStorage.setItem("visitorId", visitorId);
-      await addVisitor(visitorId);
-    } else {
-      console.log("[VisitorTracker] Returning visitor:", visitorId);
-    }
+    await updateVisitor();
 
-    await fetchVisitorStats();
-
-    // Optional: Cognito login button handler
+    // === Optional: Cognito login button ===
     const viewStatsBtn = document.getElementById("viewStats");
     if (viewStatsBtn) {
       viewStatsBtn.addEventListener("click", (e) => {
@@ -236,6 +244,7 @@
     }
   });
 </script>
+
 
     <section id="education" class="education-skills">
         <div class="container">
@@ -523,7 +532,7 @@
    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2024 Slancer Portfolio. All rights reserved.</p>
+                <p>&copy; 2024 slancer Portfolio. All rights reserved.</p>
                 
             </div>
         </div>
