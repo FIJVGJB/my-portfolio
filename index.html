@@ -156,10 +156,9 @@
     </div>
   </div>
 </section>
-
 <script>
   // === AWS Config ===
-  const apiUrl = "{https://wys25v1zy8.execute-api.us-east-1.amazonaws.com/prod/visit";
+  const apiUrl = "https://8lkxh78axg.execute-api.us-east-1.amazonaws.com/prod/visit";
   const domain = "slancer.auth.us-east-1.amazoncognito.com";
   const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
   const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
@@ -185,16 +184,15 @@
   // === Add New Visitor (POST) ===
   async function addVisitor(visitorId) {
     try {
-      await fetch(apiUrl, {
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          page: "main",
           visitorId: visitorId,
           timestamp: new Date().toISOString()
         })
       });
-      console.log("[VisitorTracker] New visitor recorded ✅", visitorId);
+      console.log("[VisitorTracker] POST OK ✅", await res.json());
     } catch (err) {
       console.error("[VisitorTracker] Error adding visitor:", err);
     }
@@ -204,10 +202,8 @@
   async function fetchVisitorStats() {
     try {
       const res = await fetch(apiUrl);
-      const result = await res.json();
-      const data = typeof result.body === "string" ? JSON.parse(result.body) : result;
-      const total = data.total || 0;
-      countUp(document.getElementById("visitorTotal"), total);
+      const data = await res.json();
+      countUp(document.getElementById("visitorTotal"), data.total || 0);
     } catch (err) {
       console.error("[VisitorTracker] Error fetching visitor stats:", err);
     }
@@ -216,17 +212,17 @@
   // === Initialize ===
   document.addEventListener("DOMContentLoaded", async () => {
     let visitorId = localStorage.getItem("visitorId");
+
     if (!visitorId) {
       visitorId = generateVisitorId();
       localStorage.setItem("visitorId", visitorId);
       await addVisitor(visitorId);
     } else {
-      console.log("[VisitorTracker] Returning visitor:", visitorId);
+      console.log("[VisitorTracker] Returning:", visitorId);
     }
 
     await fetchVisitorStats();
 
-    // Keep login redirection untouched
     const viewStatsBtn = document.getElementById("viewStats");
     if (viewStatsBtn) {
       viewStatsBtn.addEventListener("click", (e) => {
@@ -237,10 +233,6 @@
     }
   });
 </script>
-
-
-
-
 
     <section id="education" class="education-skills">
         <div class="container">
