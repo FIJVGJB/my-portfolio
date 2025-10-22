@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Visitor Counter Test</title>
+  </head>
+  <body>
+    <h2>Visitor Counter Test</h2>
+    <p id="visitorCount">Loading...</p>
+
+    <script>
+      const apiUrl = "https://wys25v1zy8.execute-api.us-east-1.amazonaws.com/prod/visit";
+
+      // Count total
+      fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("visitorCount").innerText =
+            "Total visitors: " + data.total;
+        })
+        .catch(err => console.error("Error fetching total:", err));
+
+      // Add new visitor
+      fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ visitorId: "visitor-" + Math.random() })
+      })
+        .then(res => res.json())
+        .then(console.log)
+        .catch(console.error);
+    </script>
+  </body>
+</html>
