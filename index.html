@@ -147,30 +147,30 @@
         <a href="/cv.pdf" class="btn btn-outline" download>Download CV</a>
 
         <!-- 👁 Visitor Count Display -->
-        <div class="visitor-key" style="margin-top:15px;">
-          <span class="icon">👁️</span>
-          <span class="label">Visitors:</span>
-<span id="visitorTotal">0</span>
-        </div>
+        <div style="font-size:18px; color:white;">
+  Visitors: <span id="visitorTotal">0</span>
+</div>
+
       </div>
     </div>
   </div>
 </section><script>
   // === AWS Config ===
-  const apiUrl = "https://8lkxh78axg.execute-api.us-east-1.amazonaws.com/prod/visit"; // ✅ Correct endpoint
+  const apiUrl = "https://8lkxh78axg.execute-api.us-east-1.amazonaws.com/prod/visit";
   const domain = "slancer.auth.us-east-1.amazoncognito.com";
   const clientId = "69lhmcdcc1dcqevf41ogrbkidn";
   const redirectUri = "https://slancer-portfolio.s3.us-east-1.amazonaws.com/admin.html";
 
   // === Counter Animation ===
   function countUp(el, to, duration = 800) {
+    if (!el) return;
     const start = 0;
     const startTime = performance.now();
     function tick(now) {
-      const p = Math.min(1, (now - startTime) / duration);
-      const val = Math.floor(start + (to - start) * p);
-      el.textContent = val.toLocaleString();
-      if (p < 1) requestAnimationFrame(tick);
+      const progress = Math.min(1, (now - startTime) / duration);
+      const value = Math.floor(start + (to - start) * progress);
+      el.textContent = value.toLocaleString();
+      if (progress < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
@@ -192,9 +192,9 @@
         })
       });
       const data = await res.json();
-      console.log("[VisitorTracker] New visitor recorded ✅", data);
+      console.log("[VisitorTracker] POST Success:", data);
     } catch (err) {
-      console.error("[VisitorTracker] Error adding visitor:", err);
+      console.error("[VisitorTracker] POST Error:", err);
     }
   }
 
@@ -202,27 +202,28 @@
   async function fetchVisitorStats() {
     try {
       const res = await fetch(apiUrl);
-      const data = await res.json(); // Lambda returns {"total": N}
+      const text = await res.text(); // first read text (may be JSON string)
+      const data = JSON.parse(text);
       const total = data.total || 0;
+      console.log("[VisitorTracker] GET total visitors:", total);
       const el = document.getElementById("visitorTotal");
-      if (el) countUp(el, total);
-      console.log("[VisitorTracker] Total visitors:", total);
+      countUp(el, total);
     } catch (err) {
-      console.error("[VisitorTracker] Error fetching visitor stats:", err);
+      console.error("[VisitorTracker] GET Error:", err);
     }
   }
 
   // === Combined Visitor Update ===
   async function updateVisitor() {
     try {
-      // POST (register new or repeat visitor)
-      const visitorId = localStorage.getItem("visitorId") || generateVisitorId();
-      if (!localStorage.getItem("visitorId")) {
+      let visitorId = localStorage.getItem("visitorId");
+      if (!visitorId) {
+        visitorId = generateVisitorId();
         localStorage.setItem("visitorId", visitorId);
         await addVisitor(visitorId);
+      } else {
+        console.log("[VisitorTracker] Returning visitor:", visitorId);
       }
-
-      // GET (update total)
       await fetchVisitorStats();
     } catch (err) {
       console.error("[VisitorTracker] UpdateVisitor Error:", err);
@@ -233,7 +234,7 @@
   document.addEventListener("DOMContentLoaded", async () => {
     await updateVisitor();
 
-    // === Optional: Cognito login button ===
+    // Cognito login button
     const viewStatsBtn = document.getElementById("viewStats");
     if (viewStatsBtn) {
       viewStatsBtn.addEventListener("click", (e) => {
