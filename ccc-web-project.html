@@ -39,96 +39,101 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title" id="project-title">Portfolio</h1>
-                <p class="hero-subtitle" id="project-brief">Host whole portfolio website on AWS EC2 (Ubuntu + Apache).</p>
+                <h1 class="hero-title" id="project-title">Web Development</h1>
+                <p class="hero-subtitle" id="project-brief">Designed and developed a website for Celestial Church of Christ.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary" id="live-demo-btn">
-                        <i class="fas fa-external-link-alt">Live Demo ( You are currently on it!)</i> 
-                    </a>
-                    <a href="#" class="btn btn-secondary" id="source-code-btn">
-                        <i class="fab fa-github">Source Code</i> 
-                    </a>
-                </div>
+    <a href="https://6807e39e07fd5e4b51167950--chipper-bavarois-7f166d.netlify.app" 
+       class="btn btn-primary" 
+       id="live-demo-btn" 
+       target="_blank">
+        <i class="fas fa-external-link-alt"></i> View
+    </a>
+</div>
+
             </div>
         </div>
     </section>
+<!-- Project Details Section -->
+<section class="project-details">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Project Overview</h2>
+            <p class="section-subtitle">Building a responsive and informative website for a church</p>
+        </div>
+        
+        <div class="project-info-grid">
+            <div class="project-main-content">
+                <div class="project-description">
+                    <h3>About This Project</h3>
+                    <p id="project-description">
+                        Developed a modern, responsive website for a local church. The previous website lacked proper UI, responsiveness, and made it difficult for visitors to find information.<br>
+                        The new website provides all essential information including prayer times, location, upcoming events, church members, their roles, departments, and a gallery.<br>
+                        The goal was to make the website user-friendly, informative, and scalable for future content.
+                    </p>
+                    
+                    <h3>Key Features</h3>
+                    <ul class="feature-list" id="feature-list">
+                        <li><i class="fas fa-check"></i> Fully responsive design for mobile and desktop</li>
+                        <li><i class="fas fa-check"></i> Organized pages for events, members, and gallery</li>
+                        <li><i class="fas fa-check"></i> Prayer time and location integration</li>
+                        <li><i class="fas fa-check"></i> Easy-to-update content management</li>
+                        <li><i class="fas fa-check"></i> Clean UI for better accessibility</li>
+                        <li><i class="fas fa-check"></i> Scalable structure for future growth</li>
+                        <li><i class="fas fa-check"></i> Git version control for smooth collaboration</li>
+                    </ul>
 
-    <!-- Project Details Section -->
-    <section class="project-details">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Project Overview</h2>
-                <p class="section-subtitle">Detailed information about the project, its features, and implementation</p>
+                    <h3>Challenges & Solutions</h3>
+                    <p id="challenges-solutions">
+                        The most difficult part was managing multiple pages and deciding how to structure all the data. 
+                        The client wanted to add as much content as possible, but they had limited data initially. 
+                        This required careful planning of sections, pages, and content hierarchy.<br><br>
+
+                        Another challenge was designing a user-friendly UI and making it fully responsive. 
+                        I implemented responsive layouts, optimized images, and ensured cross-device compatibility.<br><br>
+
+                        Most of the project (~2 months) was completed solo, including designing, coding, and initial content setup. 
+                        After that, teammates continued development, refining features and adding final content.
+                    </p>
+                </div>
             </div>
-            
-            <div class="project-info-grid">
-                <div class="project-main-content">
-                    <div class="project-description">
-                        <h3>About This Project</h3>
-                        <p id="project-description">
-                            Serve main site from EC2.<br>
-                            Connected domain <strong>slancer.site</strong> via Cloudflare.<br>
-                            Use SSL/TLS Full (Strict) for HTTPS.<br>
-                            Enable live updates by uploading files directly to EC2 via scp (or Git for version control).
-                        </p>
-                        
-                        <h3>Key Features</h3>
-                        <ul class="feature-list" id="feature-list">
-                            <li><i class="fas fa-check"></i> 1. GitHub Integration</li>
-                            <li><i class="fas fa-check"></i> Live Deployment on EC2</li>
-                            <li><i class="fas fa-check"></i> Automatic Updates</li>
-                            <li><i class="fas fa-check"></i> Version Control</li>
-                            <li><i class="fas fa-check"></i> Domain and SSL Ready</li>
-                            <li><i class="fas fa-check"></i> Scalable and Extendable</li>
-                            <li><i class="fas fa-check"></i> Backup and Safety</li>
-                        </ul>
 
-                        <h3>Challenges & Solutions</h3>
-                        <p id="challenges-solutions">
-                           During the project, challenges included GitHub branch mismatches and EC2 permission issues, which were resolved by verifying branches, committing all files, and adjusting folder ownership. Replacing the old portfolio was handled safely with backups and GitHub updates. To automate updates, a script with a cron job was added, pulling the latest changes every five minutes. Domain setup via Namecheap took longer due to DNS propagation, which was mitigated by verifying records, using the EC2 IP temporarily, and clearing local DNS caches.
-                        </p>
+            <div class="project-sidebar">
+                <div class="project-meta">
+                    <h3>Project Details</h3>
+                    <div class="meta-item">
+                        <strong>Duration:</strong>
+                        <span id="project-duration">~3 Months</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role:</strong>
+                        <span id="project-role">Lead Developer / Frontend Designer</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Team Size:</strong>
+                        <span id="team-size">Started Solo, Later Team Collaboration</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Status:</strong>
+                        <span id="project-status" class="status-completed">Completed</span>
                     </div>
                 </div>
 
-                <div class="project-sidebar">
-                    <div class="project-meta">
-                        <h3>Project Details</h3>
-                        <div class="meta-item">
-                            <strong>Duration:</strong>
-                            <span id="project-duration">3 Days</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Role:</strong>
-                            <span id="project-role">Full Stack Developer</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Team Size:</strong>
-                            <span id="team-size">Solo Project</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Status:</strong>
-                            <span id="project-status" class="status-completed">Completed</span>
-                        </div>
-                    </div>
-
-                    <div class="tech-stack">
-                        <h3>Technologies Used</h3>
-                        <div class="tech-tags" id="tech-tags">
+                <div class="tech-stack">
+                    <h3>Technologies Used</h3>
+                    <div class="tech-tags" id="tech-tags">
                         <span class="tech-tag">HTML</span>
                         <span class="tech-tag">CSS</span>
                         <span class="tech-tag">JavaScript</span>
                         <span class="tech-tag">Git</span>
-                        <span class="tech-tag">GitHub</span>
-                        <span class="tech-tag">Nginx</span>
-                        <span class="tech-tag">AWS EC2</span>
-                        <span class="tech-tag">Namecheap DNS</span>
-                        </div>
-
+                        <span class="tech-tag">Responsive Design</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Content Management</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 <!-- Project Gallery Section -->
 <section class="project-gallery">
@@ -140,38 +145,38 @@
     
     <div class="gallery-grid" id="gallery-grid">
       <div class="gallery-item">
-        <img src="./public/project-1/2 (3).png" alt="Homepage Screenshot" class="gallery-image">
+        <img src="./public/cccmp/1.png" alt="Homepage Screenshot" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Files</h4>
-          <p>Uploading and importing files from Github to EC2.</p>
+          <h4>Church team</h4>
+          <p>Church stall and departments</p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/2 (2).png" alt="Product Page Screenshot" class="gallery-image">
+        <img src="./public/cccmp/2.png" alt="Product Page Screenshot" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Product Details</h4>
-          <p>Detailed product view with reviews</p>
+          <h4>Prayer time</h4>
+          <p>Prayer time throughtout the week </p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/2 (4).png" alt="Dashboard Screenshot" class="gallery-image">
+        <img src="./public/cccmp/3.png" alt="Dashboard Screenshot" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Admin Dashboard</h4>
-          <p>Comprehensive admin panel</p>
+          <h4>Event</h4>
+          <p>Event timing and Location</p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/2 (1).png" alt="Dashboard Screenshot" class="gallery-image">
+        <img src="./public/cccmp/4.png" alt="Dashboard Screenshot" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Admin Dashboard</h4>
-          <p>Comprehensive admin panel</p>
+          <h4>Founder </h4>
+          <p>Samuel Bilehou Joseph Oshoffa</p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/5.png" alt="Mobile View Screenshot" class="gallery-image">
+        <img src="./public/cccmp/5.png" alt="Mobile View Screenshot" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Mobile Responsive</h4>
-          <p>Optimized for mobile devices</p>
+          <h4>Shepherd Council.</h4>
+          <p>Emmanuel Mobiyina Oshoffa</p>
         </div>
       </div>
     </div>

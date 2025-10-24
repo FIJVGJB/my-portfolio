@@ -55,86 +55,91 @@
         </div>
     </div>
 </section>
-
 <!-- Project Details Section -->
 <section class="project-details">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Project Overview</h2>
-            <p class="section-subtitle">Detailed information about the project, its features, and implementation</p>
-        </div>
-        
-        <div class="project-info-grid">
-            <div class="project-main-content">
-                <div class="project-description">
-                    <h3>About This Project</h3>
-                    <p id="project-description">
-                        Hosted a complete static portfolio on <strong>AWS S3</strong> with public access configured for static website hosting.<br>
-                        Connected a custom domain via <strong>Cloudflare</strong> and secured it using SSL/TLS.<br>
-                        Implemented a <strong>CI/CD pipeline</strong> with GitHub Actions, so every code push automatically updates the live site.
-                    </p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list" id="feature-list">
-                        <li><i class="fas fa-check"></i> GitHub → S3 CI/CD Pipeline</li>
-                        <li><i class="fas fa-check"></i> Automatic Live Deployment</li>
-                        <li><i class="fas fa-check"></i> Custom Domain Integration</li>
-                        <li><i class="fas fa-check"></i> Cloudflare SSL for HTTPS</li>
-                        <li><i class="fas fa-check"></i> Cost-effective & Scalable Hosting</li>
-                        <li><i class="fas fa-check"></i> Zero-downtime updates</li>
-                    </ul>
-
-                    <h3>Challenges & Solutions</h3>
-<p id="challenges-solutions">
-    One challenge was setting correct <strong>S3 bucket policies</strong> and permissions for public access without exposing unnecessary resources. This was resolved by applying least-privilege policies.<br><br>
-    
-    Another big <strong style="color: red;">headache</strong> was the <strong>domain and SSL verification process</strong>. At first, AWS Certificate Manager required DNS validation records. Since I was using <strong>Cloudflare DNS</strong>, I had to copy the validation CNAMEs from AWS and add them into Cloudflare. The issue was that AWS sometimes reissued or refreshed the validation records, which meant switching back and forth between Cloudflare and AWS several times until the certificate was finally issued. I solved this by carefully checking propagation, avoiding duplicate entries, and waiting for Cloudflare caches to refresh.<br><br>
-    
-    The CI/CD pipeline also failed initially due to incorrect GitHub Action permissions. I fixed it by adding the right AWS credentials and using the <code>aws s3 sync</code> command.<br><br>
-    
-    Finally, <strong>DNS propagation</strong> for the custom domain took longer than expected. To work around this, I tested using Cloudflare tools, verified CNAME/NS records, and used the direct S3 endpoint until the domain was fully active.
-</p>
-
-
-                </div>
-            </div>
-
-            <div class="project-sidebar">
-                <div class="project-meta">
-                    <h3>Project Details</h3>
-                    <div class="meta-item">
-                        <strong>Duration:</strong>
-                        <span id="project-duration">2 Days</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Role:</strong>
-                        <span id="project-role">Cloud & Web Developer</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Team Size:</strong>
-                        <span id="team-size">Solo Project</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Status:</strong>
-                        <span id="project-status" class="status-completed">Completed</span>
-                    </div>
-                </div>
-
-                <div class="tech-stack">
-                    <h3>Technologies Used</h3>
-                    <div class="tech-tags" id="tech-tags">
-                        <span class="tech-tag">AWS S3</span>
-                        <span class="tech-tag">GitHub Actions</span>
-                        <span class="tech-tag">CI/CD</span>
-                        <span class="tech-tag">Cloudflare</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Project Overview</h2>
+      <p class="section-subtitle">Detailed insights into the deployment process, challenges, and implementation strategy.</p>
     </div>
+
+    <div class="project-info-grid">
+      <div class="project-main-content">
+        <div class="project-description">
+          <h3>About This Project</h3>
+          <p id="project-description">
+            This project involved hosting a fully responsive static portfolio website using <strong>AWS S3</strong> for static hosting, integrated with <strong>CloudFront</strong> for global content delivery and caching optimization.<br><br>
+            I configured a <strong>custom domain</strong> through <strong>Route 53</strong> and secured it using an <strong>AWS Certificate Manager (ACM)</strong> SSL certificate for HTTPS.<br><br>
+            A <strong>CI/CD pipeline</strong> was established using <strong>GitHub Actions</strong> to automate deployment — every push to the main branch instantly syncs updates to the live site, ensuring zero manual uploads and real-time updates.
+          </p>
+
+          <h3>Key Features</h3>
+          <ul class="feature-list" id="feature-list">
+            <li><i class="fas fa-check"></i> Automated GitHub → S3 → CloudFront CI/CD pipeline</li>
+            <li><i class="fas fa-check"></i> Custom domain via Route 53 with SSL from AWS ACM</li>
+            <li><i class="fas fa-check"></i> CloudFront caching for performance & low latency</li>
+            <li><i class="fas fa-check"></i> Automatic HTTPS redirection</li>
+            <li><i class="fas fa-check"></i> Zero-downtime deployments</li>
+            <li><i class="fas fa-check"></i> Cost-effective, fully serverless architecture</li>
+          </ul>
+
+          <h3>Challenges & Solutions</h3>
+          <p id="challenges-solutions">
+            The biggest challenge was <strong>configuring CloudFront with a custom SSL certificate</strong>. At first, the certificate validation via <strong>AWS Certificate Manager</strong> failed multiple times because I was using <strong>Route 53</strong> alongside Cloudflare DNS, and CNAME validation records were not propagating properly. I resolved this by switching DNS management entirely to Route 53, which allowed automatic validation within minutes.<br><br>
+
+            Another challenge was setting the correct <strong>CloudFront behaviors and S3 bucket policies</strong>. Initially, CloudFront couldn’t access the bucket due to restrictive permissions. I fixed it by creating an <strong>Origin Access Control (OAC)</strong> policy that granted CloudFront read-only access while keeping the bucket private.<br><br>
+
+            The <strong>CI/CD pipeline setup</strong> also took longer than expected. The deployment failed initially because of missing IAM permissions for GitHub Actions. I fixed it by generating an IAM user with limited S3 and CloudFront access keys and updating the workflow YAML to run the <code>aws s3 sync</code> and <code>aws cloudfront create-invalidation</code> commands.<br><br>
+
+            Overall, the process that I initially thought would take one day ended up taking around <strong>3 to 4 days</strong> — mainly due to CloudFront propagation, SSL validation, and debugging IAM permissions.
+          </p>
+
+          <h3>Why I Chose This Approach</h3>
+          <p>
+            I chose the <strong>S3 + CloudFront + Route 53 + GitHub Actions</strong> approach because it’s the most <strong>scalable, secure, and cost-efficient</strong> way to host static sites on AWS.<br>
+            While using simpler options like <strong>Netlify</strong> or <strong>Vercel</strong> would have been easier, this AWS-native setup gave me full control, taught me about <strong>IAM, DNS management, SSL configuration, and CI/CD pipelines</strong> all essential cloud skills for a future Cloud Practitioner.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-sidebar">
+        <div class="project-meta">
+          <h3>Project Details</h3>
+          <div class="meta-item">
+            <strong>Duration:</strong>
+            <span id="project-duration">4 Days</span>
+          </div>
+          <div class="meta-item">
+            <strong>Role:</strong>
+            <span id="project-role">Cloud & Web Developer</span>
+          </div>
+          <div class="meta-item">
+            <strong>Team Size:</strong>
+            <span id="team-size">Solo Project</span>
+          </div>
+          <div class="meta-item">
+            <strong>Status:</strong>
+            <span id="project-status" class="status-completed">Completed</span>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h3>Technologies Used</h3>
+          <div class="tech-tags" id="tech-tags">
+            <span class="tech-tag">AWS S3</span>
+            <span class="tech-tag">CloudFront</span>
+            <span class="tech-tag">Route 53</span>
+            <span class="tech-tag">ACM</span>
+            <span class="tech-tag">GitHub Actions</span>
+            <span class="tech-tag">CI/CD</span>
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Project Gallery Section -->

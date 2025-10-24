@@ -38,11 +38,11 @@
     </div>
     <div class="container">
         <div class="hero-content">
-            <h1 class="hero-title" id="project-title">Portfolio Hosting on AWS EC2</h1>
-            <p class="hero-subtitle" id="project-brief">Deployed my personal portfolio on an AWS EC2 instance with Ubuntu, Nginx, custom domain, and Cloudflare SSL.</p>
+            <h1 class="hero-title" id="project-title">Cognito setup n Website</h1>
+            <p class="hero-subtitle" id="project-brief">Securing Admin page with Cognito to restrict unwanted access.</p>
             <div class="hero-buttons">
                 <a href="#" class="btn btn-primary" id="live-demo-btn">
-                    <i class="fas fa-external-link-alt"></i> Live Demo (You are currently on it!)
+                    <i class="fas fa-external-link-alt"></i> Live Demo 
                 </a>
                 <a href="https://github.com/FIJVGJB/my-portfolio" class="btn btn-secondary" id="source-code-btn" target="_blank">
                     <i class="fab fa-github"></i> Source Code
@@ -51,84 +51,91 @@
         </div>
     </div>
 </section>
-
 <!-- Project Details Section -->
 <section class="project-details">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Project Overview</h2>
-            <p class="section-subtitle">How I hosted and secured my portfolio on AWS EC2</p>
-        </div>
-        
-        <div class="project-info-grid">
-            <div class="project-main-content">
-                <div class="project-description">
-                    <h3>About This Project</h3>
-                    <p id="project-description">
-                        Deployed my static portfolio website on an <strong>AWS EC2 (Ubuntu)</strong> instance using <strong>Nginx</strong> as the web server.<br>
-                        Connected a custom domain <strong>slancer.site</strong> via <strong>Cloudflare</strong>.<br>
-                        Secured the website with <strong>SSL/TLS (Full Strict)</strong> for HTTPS traffic.<br>
-                        Updates are managed through Git and manual uploads, ensuring quick deployment.
-                    </p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list" id="feature-list">
-                        <li><i class="fas fa-check"></i> AWS EC2 Hosting (Ubuntu + Nginx)</li>
-                        <li><i class="fas fa-check"></i> Custom Domain Integration</li>
-                        <li><i class="fas fa-check"></i> Cloudflare SSL for Security</li>
-                        <li><i class="fas fa-check"></i> Git for Version Control</li>
-                        <li><i class="fas fa-check"></i> Scalable Setup for Future Projects</li>
-                        <li><i class="fas fa-check"></i> Cost-effective Deployment</li>
-                    </ul>
-
-                    <h3>Challenges & Solutions</h3>
-                    <p id="challenges-solutions">
-                        At first, I faced issues with <strong>Nginx configuration</strong> and incorrect folder permissions, which caused deployment failures. 
-                        This was solved by adjusting ownership and reloading services.<br><br>
-                        Another challenge was <strong>DNS propagation</strong> when connecting the domain through Cloudflare. I resolved this by verifying DNS records, clearing local caches, and testing with direct IP access until the domain propagated fully.<br><br>
-                        Lastly, SSL setup required switching to <strong>Full (Strict)</strong> mode in Cloudflare to avoid certificate mismatch, ensuring secure HTTPS access.
-                    </p>
-                </div>
-            </div>
-
-            <div class="project-sidebar">
-                <div class="project-meta">
-                    <h3>Project Details</h3>
-                    <div class="meta-item">
-                        <strong>Duration:</strong>
-                        <span id="project-duration">3 Days</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Role:</strong>
-                        <span id="project-role">Cloud & Web Developer</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Team Size:</strong>
-                        <span id="team-size">Solo Project</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Status:</strong>
-                        <span id="project-status" class="status-completed">Completed</span>
-                    </div>
-                </div>
-
-                <div class="tech-stack">
-                    <h3>Technologies Used</h3>
-                    <div class="tech-tags" id="tech-tags">
-                        <span class="tech-tag">AWS EC2</span>
-                        <span class="tech-tag">Ubuntu</span>
-                        <span class="tech-tag">Nginx</span>
-                        <span class="tech-tag">Cloudflare</span>
-                        <span class="tech-tag">SSL/TLS</span>
-                        <span class="tech-tag">Git</span>
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Project Overview</h2>
+      <p class="section-subtitle">How I implemented user authentication using Amazon Cognito</p>
     </div>
+
+    <div class="project-info-grid">
+      <div class="project-main-content">
+        <div class="project-description">
+          <h3>About This Project</h3>
+          <p id="project-description">
+            Integrated a secure login and user management system using <strong>Amazon Cognito</strong>.<br>
+            Configured <strong>Cognito User Pool</strong> for authentication and set up an <strong>App Client</strong> with a hosted login UI.<br>
+            Connected the login flow to my <strong>AWS EC2-hosted portfolio</strong>, allowing authenticated access to restricted sections.<br>
+            The authentication is fully handled by AWS — users are redirected to the <strong>Cognito Hosted Login Page</strong> and back to my domain after sign-in.
+          </p>
+
+          <h3>Key Features</h3>
+          <ul class="feature-list" id="feature-list">
+            <li><i class="fas fa-check"></i> Amazon Cognito User Pool Authentication</li>
+            <li><i class="fas fa-check"></i> Secure Hosted Login Page (No custom backend needed)</li>
+            <li><i class="fas fa-check"></i> Integration with EC2-hosted Website</li>
+            <li><i class="fas fa-check"></i> Custom Domain Mapping for Cognito Hosted UI</li>
+            <li><i class="fas fa-check"></i> OAuth 2.0 Flow with Client Secret Protection</li>
+            <li><i class="fas fa-check"></i> Secure Redirects After Login</li>
+          </ul>
+
+          <h3>Challenges & Solutions</h3>
+          <p id="challenges-solutions">
+            The most time-consuming part was <strong>domain verification and SSL setup</strong> for Cognito’s custom domain. 
+            Cognito required <strong>CNAME records</strong> in Route 53 to verify the domain and link it with my hosted UI, 
+            which took several hours due to <strong>DNS propagation delays</strong>.<br><br>
+
+            Another challenge was understanding the use of the <strong>App Client Secret</strong>. 
+            Initially, my authentication failed because the Client Secret had to be included in the redirect flow 
+            for the hosted UI to work with <strong>authorization code grant</strong>. 
+            I solved this by securely encoding it and storing it only in backend configuration (not client-side).<br><br>
+
+            I also faced issues with <strong>redirect URIs</strong> — 
+            Cognito requires exact matching URLs (case-sensitive) for both sign-in and sign-out. 
+            It took several retries to correctly match my portfolio’s live domain and Cloudflare HTTPS setup.<br><br>
+
+            I chose to use Cognito’s <strong>Hosted Login Page</strong> instead of creating a custom HTML login page 
+            because it is fully managed, more secure, and automatically includes password resets, MFA, and user confirmation — 
+            saving time and avoiding sensitive data handling on my server.
+          </p>
+        </div>
+      </div>
+
+      <div class="project-sidebar">
+        <div class="project-meta">
+          <h3>Project Details</h3>
+          <div class="meta-item">
+            <strong>Duration:</strong>
+            <span id="project-duration">1 Days</span>
+          </div>
+          <div class="meta-item">
+            <strong>Role:</strong>
+            <span id="project-role">Cloud & Web Developer</span>
+          </div>
+          <div class="meta-item">
+            <strong>Team Size:</strong>
+            <span id="team-size">Solo Project</span>
+          </div>
+          <div class="meta-item">
+            <strong>Status:</strong>
+            <span id="project-status" class="status-completed">Completed</span>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h3>Technologies Used</h3>
+          <div class="tech-tags" id="tech-tags">
+            <span class="tech-tag">Amazon Cognito</span>
+            <span class="tech-tag">AWS EC2</span>
+            <span class="tech-tag">OAuth 2.0</span>
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Project Gallery Section -->
@@ -136,46 +143,32 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">Project Gallery</h2>
-      <p class="section-subtitle">Snapshots of the EC2 hosting process</p>
+      <p class="section-subtitle">Snapshots of the Cognito setup and authentication process</p>
     </div>
     
     <div class="gallery-grid" id="gallery-grid">
       <div class="gallery-item">
-        <img src="./public/project-1/2 (3).png" alt="File Upload" class="gallery-image">
+        <img src="./public/Cognito/1.png" alt="Cognito Dashboard" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>File Deployment</h4>
-          <p>Uploaded files to EC2 via Git and SCP.</p>
+          <h4>Cognito User Pool</h4>
+          <p>Configured authentication, attributes, and security settings.</p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/2 (2).png" alt="Nginx Setup" class="gallery-image">
+        <img src="./public/Cognito/2.png" alt="App Client Settings" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Nginx Configuration</h4>
-          <p>Configured Nginx to serve the portfolio site.</p>
+          <h4>App Client Configuration</h4>
+          <p>Setup of redirect URIs, OAuth flow, and client secret management.</p>
         </div>
       </div>
       <div class="gallery-item">
-        <img src="./public/project-1/2 (4).png" alt="Cloudflare SSL" class="gallery-image">
+        <img src="./public/Cognito/3.png" alt="Domain Setup" class="gallery-image">
         <div class="gallery-overlay">
-          <h4>Cloudflare SSL</h4>
-          <p>Secured the site with SSL/TLS Full (Strict) mode.</p>
+          <h4>Custom Domain Setup</h4>
+          <p>Linked Cognito hosted UI with Route 53 and Cloudflare for SSL.</p>
         </div>
       </div>
-      <div class="gallery-item">
-        <img src="./public/project-1/2 (1).png" alt="DNS Setup" class="gallery-image">
-        <div class="gallery-overlay">
-          <h4>DNS Records</h4>
-          <p>Connected custom domain through Cloudflare DNS.</p>
-        </div>
       </div>
-      <div class="gallery-item">
-        <img src="./public/project-1/5.png" alt="Live Portfolio" class="gallery-image">
-        <div class="gallery-overlay">
-          <h4>Live Website</h4>
-          <p>Portfolio running smoothly on AWS EC2 with domain and SSL.</p>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -484,12 +477,6 @@ galleryGrid.innerHTML = project.images.map(image => {
             <div class="footer-content">
                 <div class="footer-text">
                     <p>&copy; 2024 Slancer. All rights reserved.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="index.html#home">Home</a>
-                    <a href="index.html#about">About</a>
-                    <a href="index.html#projects">Projects</a>
-                    <a href="index.html#contact">Contact</a>
                 </div>
             </div>
         </div>
