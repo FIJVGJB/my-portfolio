@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website on AWS | Slancer</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/index.html">Home</a> |
+        <a href="/projects/aws-portfolio.html">Projects</a> |
+        <a href="/experience/unity-2d-game.html">Work Experience</a> |
+        <a href="/blog/aws-portfolio-cognito.html">Blog</a> |
+        <a href="/Resume.pdf" download>Resume</a>
+    </nav>
+    <header class="hero">
+        <h1>Portfolio Website on AWS</h1>
+        <p>Hosting a modern portfolio on AWS S3, CloudFront, and Route 53 with secure admin access.</p>
+    </header>
+    <main>
+        <section>
+            <h2>Project Overview</h2>
+            <p>This project involved deploying my personal portfolio website using AWS S3 for static hosting, CloudFront for global CDN, and Route 53 for DNS management. Security was enhanced with AWS Cognito for admin access, and CI/CD was set up for automated deployments.</p>
+        </section>
+        <section>
+            <h2>Key Features</h2>
+            <ul>
+                <li>Static hosting on S3 with public and private buckets</li>
+                <li>CloudFront distribution for fast global access</li>
+                <li>Route 53 for custom domain and DNS</li>
+                <li>AWS Cognito for secure admin login</li>
+                <li>CI/CD pipeline with GitHub Actions (build, test, deploy)</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Challenges & Solutions</h2>
+            <ul>
+                <li>Route 53 DNS propagation delays – solved by verifying records and using AWS support</li>
+                <li>SSL certificate setup for HTTPS</li>
+                <li>Accidental ACL charge – removed unnecessary ACLs and got refund</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Lessons Learned</h2>
+            <ul>
+                <li>Importance of secure S3 permissions</li>
+                <li>How to automate deployments with GitHub Actions</li>
+                <li>Handling AWS billing and support</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Project Details</h2>
+            <ul>
+                <li>Tools: AWS S3, CloudFront, Route 53, Cognito, GitHub Actions</li>
+                <li>Duration: 1 month</li>
+                <li>Role: Full-stack developer, DevOps</li>
+            </ul>
+        </section>
+        <a class="button" href="/projects/aws-portfolio.html">View Case Study</a>
+    </main>
+    <footer>
+        <a href="/index.html">Home</a> |
+        <a href="/projects/aws-portfolio.html">Projects</a> |
+        <a href="/experience/unity-2d-game.html">Work Experience</a> |
+        <a href="/blog/aws-portfolio-cognito.html">Blog</a> |
+        <a href="/Resume.pdf" download>Resume</a>
+        <p>&copy; 2025 Slancer. All rights reserved.</p>
+    </footer>
+</body>
+</html>
